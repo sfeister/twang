@@ -1,12 +1,12 @@
 # twang
 Libraries for raspberry pi laser harp
 
-## Dependencies
-jackd
+## Software Dependencies
+* jackd (JACK Audio Connection Kit - http://www.jackaudio.org/)
 
 ## Python dependencies
-adafruit-mcp3008 (https://github.com/adafruit/Adafruit_Python_MCP3008)
-pyo
+* adafruit-mcp3008 (https://github.com/adafruit/Adafruit_Python_MCP3008)
+* pyo
 
 ## Sound samples
 Audio samples were downloaded from the Philharmonia Orchestra, then snipped and amplified in the free, open-source [Audacity audio editor](https://www.audacityteam.org/).
