@@ -45,9 +45,21 @@ Download and unzip all files in this repository into a local directory.
 4. Once the JACK server is started, navigate into the source directory and run:
 ```python laserharp.py ```
 
+## Troubleshooting the harp
 Rather than jumping right to laserharp.py, it is very useful to run the "test_[something].py" scripts when building and troubleshooting the laser harp. The "test_debugger.py" script is especially helpful. Run this script by:
 ``` python test_debugger.py ```
-You will still need to start the JACK server before running any tests with audio.
+You will still need to check audio output and start the JACK server before running any tests involving audio (follow steps 1 - 3 of the previous section).
+
+Python script | Action
+--- | ---
+test_button.py | Waits for physical button press
+test_lasers.py | Flashes the lasers three times
+test_ADC.py | Reads and displays values from the MCP3008 analog-to-digital converter (ADC)
+test_sound.py | Plays harp sounds, testing the audio mixer
+test_laserbutton.py | Combined test of the lasers and physical button
+test_calibrate.py | Combined test of on/off laser calibration (checking quality of physical beam break)
+test_debugger.py | Combined test intended for comprehensive debugging
+laserharp.py | Runs the laser harp as a playable instrument
 
 ## Sound samples
 Audio samples included in this repository were downloaded from the Philharmonia Orchestra, then snipped and amplified in the free, open-source [Audacity audio editor](https://www.audacityteam.org/).
