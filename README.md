@@ -15,7 +15,9 @@ It also has python package dependencies:
 * adafruit-mcp3008 (https://github.com/adafruit/Adafruit_Python_MCP3008)
 * pyo
 
-Together, JACK and pyo enable low-latency audio mixing for playing the sounds of "plucked" harp strings. The adafruit-mcp3008 library enables us to read analog voltage values using an MCP3008 chip (the Pi natively only has digital I/O): useful for noticing a change to photoresistors when the laser beam is blocked. These dependencies, and a few others, can be installed onto your Raspberry Pi (Raspbian Jessie) as follows:
+Together, JACK and pyo enable low-latency audio mixing for playing the sounds of "plucked" harp strings. The adafruit-mcp3008 library enables us to read analog voltage values using an MCP3008 chip (the Pi natively only has digital I/O): useful for noticing a change to photoresistors when the laser beam is blocked.
+
+These dependencies, and a few others, can be installed onto your Raspberry Pi (Raspbian Jessie) as follows:
 
 1. First, update your Raspbian Jessie package repositories:
 ```
@@ -29,20 +31,18 @@ sudo pip install adafruit-mcp3008
 ```
 
 ## Downloading this library
-Download and unzip this repository into a local directory.
+Download and unzip all files in this repository into a local directory.
 
 ## Running the harp
 1. Check you have audio output working with your speakers. Test this by trying to play a sound file in a standard Raspbian sound player, like Audacity. If you don't hear sound, you can change between HDMI audio, analog audio, and other audio output options by left-clicking the volume icon found in the upper right corner of the Raspbian desktop.
 
-2. If you are running without a display (no monitor), run, from the command line:
+2. If you are running your Pi with a display (connected to a monitor or TV), you can skip to the next step. If you are running without a display (no monitor, e.g. logging in via ssh), run, from the command line:
 ```export DISPLAY=:0```
-
-If you have a display, skip to the next step.
 
 3. Next, start the JACK audio server from the command line:
 ```jackd -d alsa -n 16 &```
 
-4. Once JACK server is started, navigate into the source directory and run:
+4. Once the JACK server is started, navigate into the source directory and run:
 ```python laserharp.py ```
 
 Rather than jumping right to laserharp.py, it is very useful to run the "test_[something].py" scripts when building and troubleshooting the laser harp. The "test_debugger.py" script is especially helpful. Run this script by:
