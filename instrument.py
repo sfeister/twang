@@ -1,15 +1,19 @@
-# Version 5 of the Laser Harp Script
+# Pi Instrument Script
 # Written by Scott Feister
 #
-# Uses the MCP3008 ADC, photoresistors + 10k resistors, 
-
-# Must install the MCP3008 python package first. Software SPI, not hardware.
-# Follow MCP3008 instructions at: https://learn.adafruit.com/raspberry-pi-analog-to-digital-converters/mcp3008
-
+# Run this script to play your laser instrument!
+# You might want to even add it into the startup menu.
+#
 # Start jack before running this script, e.g. via
 #   export DISPLAY=:0 
 #   jackd -d alsa -n 16 &
 # 
+#
+# Uses the MCP3008 ADC, photoresistors + 10k resistors, 
+#
+# Must install the MCP3008 python package first. Software SPI, not hardware.
+# Follow MCP3008 instructions at: https://learn.adafruit.com/raspberry-pi-analog-to-digital-converters/mcp3008
+#
 # Documentation on initializing LED, Button:
 #   https://gpiozero.readthedocs.io/en/latest/recipes.html
 
