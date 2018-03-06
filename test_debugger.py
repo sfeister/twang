@@ -34,8 +34,10 @@ s.start()
 
 nstrings = 5 # Number of harp strings
 
-notedir = r"/home/pi/mycode/harp/sounds/guitarwav" # Directory containing list of audio files
-notes = ["c4", "d4", "e4", "f4", "g4", "a4", "b4"] # Should be equal to or longer in length than number of strings
+scriptdir = os.path.dirname(os.path.realpath(__file__)) # Directory of this script
+notedir = os.path.join(scriptdir, "sounds", "guitar") # Directory containing list of audio files
+#notedir = r"/home/pi/mycode/twang/sounds/guitar" # Directory containing list of audio files
+notes = ["c4", "d4", "e4", "f4", "g4"]  # List of wav files in the notedir folder
 ext = ".wav"
 
 sounds = [None]*nstrings
@@ -88,6 +90,8 @@ raw = np.zeros((nchans,), dtype=int) # The raw ADC values
 printer = np.vectorize(lambda x: str(x).zfill(4)) # Call to print raw ADC values
 
 ########## CONTINUOUS PRINT VALUES TO TERMINAL ################
+print("Press and hold button to play sound, display message, and turn on lasers. ADC values will show continuously.")
+print("Press Ctrl + C when you are finished testing.")
 
 while True:
     # Read the ADC values

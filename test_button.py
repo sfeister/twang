@@ -18,6 +18,7 @@ button = Button(BTN)
 button.when_pressed = callback1
 
 ## LISTEN FOR THE BUTTON PRESS
+print("Press the button as many times as desired (message will display each time). Type Ctrl + C to stop.")
 # Begin an infinite loop (keeps the script running, and listening for button presses)
 while True:
     sleep(0.1) # This 'sleep' call prevents the infinite loop from hogging all of your system resources

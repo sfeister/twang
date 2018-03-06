@@ -6,7 +6,7 @@
 # Must install the MCP3008 python package first. Software SPI, not hardware.
 # Follow MCP3008 instructions at: https://learn.adafruit.com/raspberry-pi-analog-to-digital-converters/mcp3008
 
-# from time import sleep
+from time import sleep
 import numpy as np
 from Adafruit_MCP3008 import MCP3008
 
@@ -28,10 +28,12 @@ raw = np.zeros((nchans,), dtype=int) # The raw ADC values
 printer = np.vectorize(lambda x: str(x).zfill(4)) # Call to print raw ADC values
 
 ########## CONTINUOUS PRINT VALUES TO TERMINAL ################
-
+print("Reading and displaying ADC channels. Press Ctrl + C to quit.")
 while True:
     # Read the ADC values
     for i in range(nchans):
         raw[i] = mcp.read_adc(i)
     # Print the ADC values to the terminal window
     print(printer(raw).astype('object'))
+    # Pause for a half second
+    sleep(0.5)
