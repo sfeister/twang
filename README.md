@@ -7,15 +7,20 @@ This Python code goes along with a middle school project to create a harp where 
 
 The scripts are meant to be run in Python2.7+. They were tested on Raspberry Pi 3 with the "Raspbian Jessie" operating system.
 
-## Installing dependencies
+## Physical pre-requisites
+You will need to build certain circuits before running the Python scripts; for example, you can't test a button if it's not wired to the Pi Zero! Circuit and connections diagrams for the five-string laser harp are available, as a PDF, in the "diagrams" directory. You can follow these diagrams to construct the physical circuits that go along with this Python code.
+
+For more information on the physical construction of the five-string laser harp we are using for the middle school project, you should follow instructions on our [Hackaday project page](https://hackaday.io/project/28159). As of Spring 2018, we are in the process of writing our instructions, so stay 'tuned'!
+
+## Installing dependencies on the Raspberry Pi
 This toolkit has software dependencies:
 * jackd (JACK Audio Connection Kit - http://www.jackaudio.org/)
 
-It also has python package dependencies:
+It also has Python package dependencies:
 * adafruit-mcp3008 (https://github.com/adafruit/Adafruit_Python_MCP3008)
 * pyo
 
-Together, JACK and pyo enable low-latency audio mixing for playing the sounds of "plucked" harp strings. The adafruit-mcp3008 library enables us to read analog voltage values using an MCP3008 chip (the Pi natively only has digital I/O): useful for noticing a change to photoresistors when the laser beam is blocked.
+Together, JACK and pyo enable low-latency audio mixing for playing the sounds of "plucked" harp strings. The adafruit-mcp3008 library enables us to read analog voltage values using an MCP3008 chip (the Raspberry Pi natively only has digital I/O): useful for noticing a change to photoresistors when the laser beam is blocked.
 
 These dependencies, and a few others, can be installed onto your Raspberry Pi (Raspbian Jessie) as follows:
 
@@ -31,9 +36,11 @@ sudo pip install adafruit-mcp3008
 ```
 
 ## Downloading this library
-Download and unzip all files in this repository into a local directory.
+Download and unzip all files in this repository into a local directory on the Raspberry Pi.
 
 ## Running the harp
+After physical construction of the laser harp:
+
 1. Check you have audio output working with your speakers. Test this by trying to play a sound file in a standard Raspbian sound player, like Audacity. If you don't hear sound, you can change between HDMI audio, analog audio, and other audio output options by left-clicking the volume icon found in the upper right corner of the Raspbian desktop.
 
 2. If you are running your Pi with a display (connected to a monitor or TV), you can skip to the next step. If you are running without a display (no monitor, e.g. logging in via ssh), run, from the command line:
@@ -61,16 +68,15 @@ test_calibrate.py | Combined test of on/off laser calibration (checking quality 
 test_debugger.py | Combined test intended for comprehensive debugging
 laserharp.py | Runs the laser harp as a playable instrument
 
-## Circuit diagrams
-You will need to build certain circuits before running the Python scripts; for example, you can't test the calibration button if it's not wired to the Pi Zero! Circuit and connections diagrams for the five-string laser harp are available, as a PDF, in the "diagrams" directory. You can follow these diagrams to construct the physical circuits that go along with this Python code.
+## Credits
+This project was created by Alex Wulff (DeAnza Academy of Technology and the Arts), Scott Feister (University of Chicago), and Phil Hampton (California State University Channel Islands). We originally designed, built, and interactively displayed the five-string laser harp for K-8 children at the [CSUCI Annual Science Carnival](https://www.csuci.edu/sciencecarnival/) in November 2017. It was a big hit, so we have decided to develop it into a middle school project!
 
-The diagrams were made using the free, open-source vector graphics software [Inkscape](https://www.audacityteam.org/). Vector graphics (.svg format) for circuit elements, warning symbols, and more were gathered from [Wikimedia Commons] (https://commons.wikimedia.org) and incorporated into the laser harp diagrams. I found this [collection of electrical symbols](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg) particularly helpful.
-
-## Physical construction
-To physically build the five-string laser harp, you should follow instructions on [our Hackaday project page](https://hackaday.io/project/28159). As of Spring 2018, we are in the process of writing our instructions, so stay 'tuned'!
-
-## Sound samples
-Audio samples included in this repository were downloaded from the Philharmonia Orchestra, then snipped and amplified in the free, open-source [Audacity audio editor](https://www.audacityteam.org/).
+### Sound samples
+Audio samples included in this repository were downloaded from the Philharmonia Orchestra, then snipped and amplified in the free, open-source [Audacity audio editor](https://www.audacityteam.org/). Each note is exported as a .wav file and saved in the "sounds" directory.
 
 More freely useable sound samples are available at:
 http://www.philharmonia.co.uk/explore/sound_samples
+
+### Circuit diagrams
+We made the laser harp circuit diagrams using the free, open-source vector graphics software [Inkscape](https://www.audacityteam.org/). Vector graphics (*.svg* format) for circuit elements, warning symbols, and more were gathered from [Wikimedia Commons](https://commons.wikimedia.org) and incorporated into the laser harp diagrams. I found this [collection of electrical symbols](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg) and this [laser warning symbol](https://commons.wikimedia.org/wiki/File:Laser-symbol.svg) particularly helpful.
+
