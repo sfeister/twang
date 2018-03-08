@@ -3,7 +3,7 @@ Python library for a middle school Raspberry Pi Laser Harp (built with a CNC and
 
 More generally, this Python library could be adapted for any beambreak-based instrument built using the Raspberry Pi. Feel free to send me an email if you'd like help making an adaptation!
 
-This Python code goes along with a middle school project to create a harp where the strings are laser beams. Goals of this wider project are learning about circuits, CAD, and computer programming. See our project page on Hackaday: https://hackaday.io/project/28159
+The Python scripts go along with a middle school project to create a harp where the strings are laser beams. Goals of this wider project are learning about circuits, CAD, and computer programming. See our [Hackaday project page](https://hackaday.io/project/28159) for more details!
 
 The scripts are meant to be run in Python2.7+. They were tested on Raspberry Pi 3 and Raspberry Pi Zero W with the "Raspbian Jessie" operating system.
 
