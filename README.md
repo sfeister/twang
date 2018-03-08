@@ -5,10 +5,10 @@ More generally, this Python library could be adapted for any beambreak-based ins
 
 This Python code goes along with a middle school project to create a harp where the strings are laser beams. Goals of this wider project are learning about circuits, CAD, and computer programming. See our project page on Hackaday: https://hackaday.io/project/28159
 
-The scripts are meant to be run in Python2.7+. They were tested on Raspberry Pi 3 with the "Raspbian Jessie" operating system.
+The scripts are meant to be run in Python2.7+. They were tested on Raspberry Pi 3 and Raspberry Pi Zero W with the "Raspbian Jessie" operating system.
 
 ## Physical pre-requisites
-You will need to build certain circuits before running the Python scripts; for example, you can't test a button if it's not wired to the Pi Zero! Circuit and connections diagrams for the five-string laser harp are available, as a PDF, in the "diagrams" directory. You can follow these diagrams to construct the physical circuits that go along with this Python code.
+You will need to build certain circuits before running the Python scripts; for example, you can't test a button if it's not wired to the Raspberry Pi! Circuit and connections diagrams for the five-string laser harp are available, as a PDF, in the "diagrams" directory. You can follow these diagrams to construct the physical circuits that go along with this Python code.
 
 For more information on the physical construction of the five-string laser harp we are using for the middle school project, you should follow instructions on our [Hackaday project page](https://hackaday.io/project/28159). As of Spring 2018, we are in the process of writing our instructions, so stay 'tuned'!
 
