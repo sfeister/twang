@@ -15,7 +15,7 @@
    version="1.1"
    id="svg5567"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="diagram2.svg">
+   sodipodi:docname="FiveStringCircuitDiagram.svg">
   <defs
      id="defs5561">
     <marker
@@ -1176,9 +1176,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="1303.9636"
-     inkscape:cy="569.81244"
+     inkscape:zoom="0.7"
+     inkscape:cx="856.16792"
+     inkscape:cy="510.64003"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1200,7 +1200,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1222,7 +1222,7 @@
          style="font-size:7.05555534px;stroke-width:0.26458332" /></text>
     <g
        id="g35850"
-       transform="translate(29.773825,188.42501)">
+       transform="translate(29.773825,203.57039)">
       <g
          transform="translate(71.080664,-121.66192)"
          id="g20570">
@@ -1461,7 +1461,7 @@
        id="g24233-6" />
     <g
        id="g36714"
-       transform="translate(29.773825,188.42501)">
+       transform="translate(29.773825,226.66248)">
       <text
          id="text15808-2-05"
          y="28.095858"
@@ -2120,7 +2120,7 @@
     </g>
     <g
        id="g36596"
-       transform="translate(29.773825,188.42501)">
+       transform="translate(29.773825,226.66248)">
       <text
          id="text5583"
          y="127.04317"
@@ -2943,7 +2943,7 @@
     </g>
     <g
        id="g35811"
-       transform="translate(14.731218,179.28576)">
+       transform="translate(14.731218,205.97718)">
       <line
          x1="389.73819"
          y1="-21.340851"
@@ -3092,7 +3092,7 @@
     </g>
     <g
        id="g35646"
-       transform="translate(28.261921,188.42501)">
+       transform="translate(28.261921,203.57039)">
       <g
          transform="rotate(90,203.16092,-178.25326)"
          id="g18305-1-7">
@@ -3492,11 +3492,11 @@
            style="font-size:7.05555534px;line-height:20.0000003%;stroke-width:0.26458332"
            y="-236.92833"
            x="2.0849123"
-           sodipodi:role="line">This circuit is for testing that your lasers work properly, before buildng the Laser Control Circuit.</tspan></text>
+           sodipodi:role="line">This circuit is for testing that your lasers work properly, before building the Laser Control Circuit.</tspan></text>
     </g>
     <g
        id="g35783"
-       transform="translate(15.171332,174.52508)">
+       transform="translate(15.171332,201.2165)">
       <line
          x1="389.10876"
          y1="-92.867798"
@@ -3656,7 +3656,7 @@
          style="stroke-width:0.26458332" /></text>
     <g
        id="g35755"
-       transform="translate(24.177593,188.42501)">
+       transform="translate(24.177593,215.11643)">
       <g
          transform="matrix(0.52916667,0,0,0.52916667,-3.5947244,-84.917733)"
          id="g5420">
@@ -4252,6 +4252,6 @@
          id="tspan35566"
          x="35.468731"
          y="-293.2912"
-         style="stroke-width:0.26458332"></tspan></text>
+         style="stroke-width:0.26458332" /></text>
   </g>
 </svg>

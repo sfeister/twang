@@ -61,10 +61,16 @@ test_calibrate.py | Combined test of on/off laser calibration (checking quality 
 test_debugger.py | Combined test intended for comprehensive debugging
 laserharp.py | Runs the laser harp as a playable instrument
 
+## Circuit diagrams
+You will need to build certain circuits before running the Python scripts; for example, you can't test the calibration button if it's not wired to the Pi Zero! Circuit and connections diagrams for the five-string laser harp are available, as a PDF, in the "diagrams" directory. You can follow these diagrams to construct the physical circuits that go along with this Python code.
+
+The diagrams were made using the free, open-source vector graphics software [Inkscape](https://www.audacityteam.org/). Vector graphics (.svg format) for circuit elements, warning symbols, and more were gathered from [Wikimedia Commons] (https://commons.wikimedia.org) and incorporated into the laser harp diagrams. I found this [collection of electrical symbols](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg) particularly helpful.
+
+## Physical construction
+To physically build the five-string laser harp, you should follow instructions on [our Hackaday project page](https://hackaday.io/project/28159). As of Spring 2018, we are in the process of writing our instructions, so stay 'tuned'!
+
 ## Sound samples
 Audio samples included in this repository were downloaded from the Philharmonia Orchestra, then snipped and amplified in the free, open-source [Audacity audio editor](https://www.audacityteam.org/).
 
 More freely useable sound samples are available at:
 http://www.philharmonia.co.uk/explore/sound_samples
-
-
