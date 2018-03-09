@@ -53,9 +53,7 @@ After physical construction of the laser harp:
 ```python laserharp.py ```
 
 ## Troubleshooting the harp
-Rather than jumping right to laserharp.py, it is very useful to run the "test_[something].py" scripts when building and troubleshooting the laser harp. The "test_debugger.py" script is especially helpful. Run this script by:
-``` python test_debugger.py ```
-You will still need to check audio output and start the JACK server before running any tests involving audio (follow steps 1 - 3 of the previous section).
+Several Python scripts for testing and running the five-string laser harp are included:
 
 Python script | Action
 --- | ---
@@ -67,6 +65,10 @@ test_laserbutton.py | Combined test of the lasers and physical button
 test_calibrate.py | Combined test of on/off laser calibration (checking quality of physical beam break)
 test_debugger.py | Combined test intended for comprehensive debugging
 laserharp.py | Runs the laser harp as a playable instrument
+
+Rather than jumping right to laserharp.py, it is very useful to run the "test_[something].py" scripts when building and troubleshooting the laser harp. The "test_debugger.py" script is especially helpful. Run this script by:
+``` python test_debugger.py ```
+You will still need to check audio output and start the JACK server before running any tests involving audio (follow steps 1 - 3 of the previous section).
 
 ## Credits
 This project was created by Alex Wulff (DeAnza Academy of Technology and the Arts), Scott Feister (University of Chicago), and Phil Hampton (California State University Channel Islands). We originally designed, built, and interactively displayed the five-string laser harp for K-8 children at the [CSUCI Annual Science Carnival](https://www.csuci.edu/sciencecarnival/) in November 2017. It was a big hit, so we have decided to develop it into a middle school project!
