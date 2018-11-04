@@ -52,10 +52,12 @@ printer = np.vectorize(lambda x: str(x).zfill(4)) # Call to print raw ADC values
 
 ################## TESTING STATE MACHINE ###########################
 state = 'wait' # Start in the 'wait' state
+print("Type Ctrl + C when you are ready to quit.")
+print("Press the physical calibration button to test calibration.")
 
 while True:
     if state == 'calibrate':
-        print("Test calibrating (no button press needed)...")
+        print("Test calibrating...")
         lasers.on()
         sleep(0.75) # Give lasers a moment to fully turn on
 
@@ -85,6 +87,7 @@ while True:
         print(printer(percent_drop).astype('object'))
 
         print("Test calibration complete!")
+        print("Type Ctrl + C when you are ready to quit.")
         
         state = 'wait'  # Switch into the 'wait' state
         
