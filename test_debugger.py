@@ -23,6 +23,7 @@ from datetime import datetime
 import numpy as np
 import pyo
 from Adafruit_MCP3008 import MCP3008
+import Adafruit_GPIO.SPI as SPI
 from gpiozero import LED, Button
 
 
@@ -75,12 +76,17 @@ button.when_pressed = callback_press
 button.when_released = callback_release
 
 ## SET UP THE MCP3008 ADC
-# Software SPI configuration:
-CLK  = 4
-MISO = 17 # a.k.a. DOUT
-MOSI = 27 # a.k.a. DIN
-CS   = 22 # a.k.a. CS/SHDN
-mcp = MCP3008(clk=CLK, cs=CS, miso=MISO, mosi=MOSI)
+# Hardware SPI configuration:
+SPI_PORT   = 0
+SPI_DEVICE = 0
+mcp = MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
+
+#Software SPI
+#CLK  = 4
+#MISO = 17 # a.k.a. DOUT
+#MOSI = 27 # a.k.a. DIN
+#CS   = 22 # a.k.a. CS/SHDN
+#mcp = MCP3008(clk=CLK, cs=CS, miso=MISO, mosi=MOSI)
 
 # Allocate arrays for ADC values
 nchans = 8 # Number of analog input channels on the MCP3008
