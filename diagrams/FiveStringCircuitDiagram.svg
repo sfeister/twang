@@ -14,7 +14,7 @@
    viewBox="0 0 582.93 754.38"
    version="1.1"
    id="svg5567"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="FiveStringCircuitDiagram.svg">
   <defs
      id="defs5561">
@@ -1176,11 +1176,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="856.16792"
-     inkscape:cy="510.64003"
+     inkscape:zoom="2.56"
+     inkscape:cx="549.59551"
+     inkscape:cy="312.87996"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g14764-7-6-8-5-8-7"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="986"
@@ -1890,19 +1890,19 @@
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:2.11666656px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-           x="57.095322"
+           x="54.036076"
            y="60.704803"
            id="text5583-0-94-2-2-9-7-8"><tspan
              sodipodi:role="line"
-             x="57.095322"
+             x="54.036076"
              y="64.512321"
              style="font-size:6.73805571px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
              id="tspan14430-3-2-7-2-6-4" /><tspan
              sodipodi:role="line"
-             x="57.095322"
+             x="54.036076"
              y="68.182037"
              style="font-size:7.05555534px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
-             id="tspan14470-7-0-6-5-7-7">PIN22</tspan></text>
+             id="tspan14470-7-0-6-5-7-7">CE0</tspan></text>
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -1921,19 +1921,19 @@
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:2.11666656px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-           x="57.095322"
+           x="55.896427"
            y="60.704803"
            id="text5583-0-94-2-2-9-7-8-7"><tspan
              sodipodi:role="line"
-             x="57.095322"
+             x="55.896427"
              y="64.512321"
              style="font-size:6.73805571px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
              id="tspan14430-3-2-7-2-6-4-7" /><tspan
              sodipodi:role="line"
-             x="57.095322"
+             x="55.896427"
              y="68.182037"
              style="font-size:7.05555534px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
-             id="tspan14470-7-0-6-5-7-7-0">PIN27</tspan></text>
+             id="tspan14470-7-0-6-5-7-7-0">MOSI</tspan></text>
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -1952,19 +1952,19 @@
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:2.11666656px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-           x="65.032822"
+           x="63.833927"
            y="62.594685"
            id="text5583-0-94-2-2-9-7-8-7-8"><tspan
              sodipodi:role="line"
-             x="65.032822"
+             x="63.833927"
              y="66.402206"
              style="font-size:6.73805571px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
              id="tspan14430-3-2-7-2-6-4-7-8" /><tspan
              sodipodi:role="line"
-             x="65.032822"
+             x="63.833927"
              y="70.071922"
              style="font-size:7.05555534px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
-             id="tspan14470-7-0-6-5-7-7-0-3">PIN17</tspan></text>
+             id="tspan14470-7-0-6-5-7-7-0-3">MISO</tspan></text>
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -2014,19 +2014,19 @@
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:2.11666656px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-           x="62.894665"
+           x="63.944172"
            y="62.594685"
            id="text5583-0-94-2-2-9-7-8-7-8-3"><tspan
              sodipodi:role="line"
-             x="62.894665"
+             x="63.944172"
              y="66.402206"
              style="font-size:6.73805571px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
              id="tspan14430-3-2-7-2-6-4-7-8-8" /><tspan
              sodipodi:role="line"
-             x="62.894665"
+             x="63.944172"
              y="70.071922"
              style="font-size:7.05555534px;line-height:100%;text-align:center;text-anchor:middle;stroke-width:0.26458332"
-             id="tspan14470-7-0-6-5-7-7-0-3-3">PIN4</tspan></text>
+             id="tspan14470-7-0-6-5-7-7-0-3-3">SCLK</tspan></text>
         <text
            xml:space="preserve"
            style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
