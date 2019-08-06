@@ -22,19 +22,38 @@ class LightInstrument:
     Example: A laser harp, or an LED-based piano.
     """
 
-    def __init__(self, lstrings, chordbtns=None):
+    def __init__(self, lstrings, open_chord=None, chordbtns=None):
         """ If open_chord is specified, overrides the lstring values """
-        pygame.midi.init()
-        self.player = pygame.midi.Output(0)
-        self.player.set_instrument(0)
 
         self.nstrings = len(lstrings) # Count the number of strings
         self.lstrings = lstrings # A list of LightString objects
         self.chordbtns = chordbtns # A list of ChordButton objects; if None, assume this is a harp-like instrument (no chord changes)
-        if chordbtns is not None:
+        
+        # Initialize notes on the lstrings with an open chord
+        if open_chord is None:
             self.open_chord = [lstring.note for lstring in lstrings] # The default chord is pulled from the strings as configured right now
+        else:
+            self.open_chord = open_chord
+        
+        self.update_chord(self.open_chord)
+        
+        # Check that there are equal number of notes in all chords as there are lstrings!
+        if len(self.open_chord) != len(lstrings):
+            raise Exception("Number of notes in the open_chord does not match the number of LightStrings in the LightInstrument!")
+        else:
+            for chordbtn in chordbtns:
+                if len(chordbtn.notes) != len(lstrings):
+                    raise Exception("Number of notes in ChordButton's chord does not match the number of LightStrings in the LightInstrument!")                
+
+        # Initialize chord buttons array to all False (nothing pressed)
+        if chordbtns is not None:
             self.chordarr = np.array([False for btn in self.chordbtns]) # A True/False list of whether chord buttons are pressed
         
+        # Start Pygame MIDI engine and set instrument output
+        pygame.midi.init()
+        self.player = pygame.midi.Output(0)
+        self.player.set_instrument(0)
+
     def start(self):
         """ Begins endless loop of the instrument """
         while True:
@@ -45,24 +64,31 @@ class LightInstrument:
             # Send MIDI signal for any strings that have been plucked since last loop iteration
             for lstring in self.lstrings:
                 lstring.check_and_play(self.player)
-    
-    def update_chord(self):
+                
+    def update_chord(self, chord):
+        """ Update the currently implemented chord """
+        for note, lstring in zip(chord, self.lstrings):
+            lstring.change_note(note)
+        
+        self.chord = chord
+                        
+    def check_and_update_chord(self):
         """ Update the currently implemented chord, only if new button has been pressed """
         chordarr = np.array([btn.is_pressed() for btn in self.chordbtns]) # List of True/False on whether buttons are pressed
         if not np.array_equal(chordarr, self.chordarr):
+            # Update the chord array for future comparison
+            self.chordarr = chordarr
+
             # Find the new chord notes
             if not np.any(chordarr):
                 chord = self.open_chord # No buttons pressed; use the open chord
             else:
                 ix = np.argmax(chordarr) # Index of the depressed chord (first occurrence), if applicable
                 chord = self.chordbtns[ix].notes
-            
-            # Apply the new chord notes
-            for note, lstring in zip(chord, self.lstrings):
-                lstring.change_note(note)
                 
-            self.chordarr = chordarr
-                    
+            # Apply the new chord notes to the lstrings
+            self.update_chord(chord)
+                        
     def __del__(self):
         del self.player
         pygame.midi.quit()
