@@ -5,6 +5,8 @@ LightInstrument4.py: Class-based definitions of light-based instruments outputti
 
 Now using interrupts and support for chords.
 
+TODO: Facilitate easier changing of instrument
+
 Created by Scott Feister on Mon Aug  5 10:39:52 2019
 """
 
@@ -58,8 +60,7 @@ class LightInstrument:
         """ Begins endless loop of the instrument """
         while True:
             # Update the chord as needed
-            if self.coordbtns is not None:
-                self.update_chord()
+            self.check_and_update_chord()
             
             # Send MIDI signal for any strings that have been plucked since last loop iteration
             for lstring in self.lstrings:
@@ -74,20 +75,21 @@ class LightInstrument:
                         
     def check_and_update_chord(self):
         """ Update the currently implemented chord, only if new button has been pressed """
-        chordarr = np.array([btn.is_pressed() for btn in self.chordbtns]) # List of True/False on whether buttons are pressed
-        if not np.array_equal(chordarr, self.chordarr):
-            # Update the chord array for future comparison
-            self.chordarr = chordarr
-
-            # Find the new chord notes
-            if not np.any(chordarr):
-                chord = self.open_chord # No buttons pressed; use the open chord
-            else:
-                ix = np.argmax(chordarr) # Index of the depressed chord (first occurrence), if applicable
-                chord = self.chordbtns[ix].notes
-                
-            # Apply the new chord notes to the lstrings
-            self.update_chord(chord)
+        if self.coordbtns is not None:
+            chordarr = np.array([btn.is_pressed() for btn in self.chordbtns]) # List of True/False on whether buttons are pressed
+            if not np.array_equal(chordarr, self.chordarr):
+                # Update the chord array for future comparison
+                self.chordarr = chordarr
+    
+                # Find the new chord notes
+                if not np.any(chordarr):
+                    chord = self.open_chord # No buttons pressed; use the open chord
+                else:
+                    ix = np.argmax(chordarr) # Index of the depressed chord (first occurrence), if applicable
+                    chord = self.chordbtns[ix].notes
+                    
+                # Apply the new chord notes to the lstrings
+                self.update_chord(chord)
                         
     def __del__(self):
         del self.player
