@@ -5,7 +5,9 @@ LightInstrument4.py: Class-based definitions of light-based instruments outputti
 
 Now using interrupts and support for chords.
 
-TODO: Facilitate easier changing of instrument
+TODO:
+    * Facilitate easier changing of instrument
+    * Add velocity control (??) by optional advanced, double-barrel light string?
 
 Created by Scott Feister on Mon Aug  5 10:39:52 2019
 """
