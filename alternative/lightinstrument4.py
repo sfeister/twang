@@ -101,10 +101,14 @@ class LightInstrument:
 class ChordButton:
     """
     Class describing a pushbutton that, when pressed, changes the chord
+    
+    -9999 is the only note allowed outside the integer range for midi notes.
     """
     def __init__(self, pin, notes):
         self.notes = notes # A list of midi notes in this chord. E.g. notes = [12, 18, 19, 30, 41]. Should match number of strings. 
-        if not set(notes).issubset(set(range(128))): # Check that notes list contains only valid midi notes
+        notes_set = set(notes)
+        notes_set.remove(-9999) # -9999 is a placeholder for non-pluckable string
+        if not notes_set.issubset(set(range(128))): # Check that notes list contains only valid midi notes
             raise Exception("Invalid notes. All midi notes must be integers the range of 0 to 127.")
 
         self.pin = pin # BCM pin number
@@ -153,9 +157,10 @@ class LightString:
 
     def play(self, player):
         """ Play sound using the PyGame Midi player"""
-        player.note_off(self.last_note, velocity=127) # Stop playing old sound
-        player.note_on(self.note, velocity=127) # Play new sound
-        self.last_note = self.note # Update the last_note variable
+        if self.note > -1: # Exclude case of -9999, which we are using to represent an unpluckable note
+            player.note_off(self.last_note, velocity=127) # Stop playing old sound
+            player.note_on(self.note, velocity=127) # Play new sound
+            self.last_note = self.note # Update the last_note variable
     
     def check_and_play(self, player):
         """ Check beam and play sound (if appropriate)
