@@ -22,6 +22,9 @@ import pygame.midi
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 
+READYLED = 10
+GPIO.setup(READYLED, GPIO.OUT)
+
 class LightInstrument:
     """
     Class for a musical instrument played by breaking beams of light.
@@ -45,16 +48,16 @@ class LightInstrument:
         
         self.update_chord(self.open_chord)
         
-        # Check that there are equal number of notes in all chords as there are lstrings!
-        if len(self.open_chord) != len(lstrings):
-            raise Exception("Number of notes in the open_chord does not match the number of LightStrings in the LightInstrument!")
-        else:
-            for chordbtn in chordbtns:
-                if len(chordbtn.notes) != len(lstrings):
-                    raise Exception("Number of notes in ChordButton's chord does not match the number of LightStrings in the LightInstrument!")                
-
-        # Initialize chord buttons array to all False (nothing pressed)
         if chordbtns is not None:
+            # Check that there are equal number of notes in all chords as there are lstrings!
+            if len(self.open_chord) != len(lstrings):
+                raise Exception("Number of notes in the open_chord does not match the number of LightStrings in the LightInstrument!")
+            else:
+                for chordbtn in chordbtns:
+                    if len(chordbtn.notes) != len(lstrings):
+                        raise Exception("Number of notes in ChordButton's chord does not match the number of LightStrings in the LightInstrument!")                
+
+            # Initialize chord buttons array to all False (nothing pressed)
             self.chordarr = np.array([False for btn in self.chordbtns]) # A True/False list of whether chord buttons are pressed
         
         # Start Pygame MIDI engine and set instrument output
@@ -64,6 +67,12 @@ class LightInstrument:
 
     def start(self):
         """ Begins endless loop of the instrument """
+        print("Instrument starting, ready to play!")
+        GPIO.output(READYLED, 1) # Turn on green "Ready-to-play" LED
+
+        for lstring in self.lstrings:
+            lstring.start()
+            
         while True:
             # Update the chord as needed
             self.check_and_update_chord()
@@ -81,7 +90,7 @@ class LightInstrument:
                         
     def check_and_update_chord(self):
         """ Update the currently implemented chord, only if new button has been pressed """
-        if self.coordbtns is not None:
+        if self.chordbtns is not None:
             chordarr = np.array([btn.is_pressed() for btn in self.chordbtns]) # List of True/False on whether buttons are pressed
             if not np.array_equal(chordarr, self.chordarr):
                 # Update the chord array for future comparison
@@ -100,7 +109,8 @@ class LightInstrument:
     def __del__(self):
         del self.player
         pygame.midi.quit()
-        GPIO.cleanup() # Not sure if this will work as hoped here...
+        GPIO.output(READYLED, 0) # Turn off green "Ready-to-play" LED
+        #GPIO.cleanup() # Not sure if this will work as hoped here... causes an error.
 
 class ChordButton:
     """
@@ -173,7 +183,7 @@ class LightString:
         """       
         if self.playme:
             self.playme = False
-            self.play()
+            self.play(player)
             
     def __del__(self):
         """ Shut down the string """
