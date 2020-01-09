@@ -13,7 +13,8 @@ import numpy as np
 import pyo
 
 ## INITIALIZE THE SOUND MIXER
-s = pyo.Server(duplex=0).boot() # Boot the pyo server
+s = pyo.Server(duplex=0, audio='jack').boot() # Boot the pyo server
+s.setJackAuto(False, False)
 s.start()
 
 nstrings = 5 # Number of harp strings

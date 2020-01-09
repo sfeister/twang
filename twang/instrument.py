@@ -1,29 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-LightInstrument4.py: Class-based definitions of light-based instruments outputting MIDI
+instrument.py: Class-based definitions of light-based instruments on Raspberry Pi
 
-Now using interrupts and support for chords.
+Watches for plucks of light strings and pressing of buttons to change chords.
+Uses Raspberry Pi's hardware interrupts on digital GPIO pins for catching quick plucks of strings.
+Supports use of buttons to change chords ,facilitating not just laser harps, but laser guitars!
+Outputs a MIDI stream using PyGame.
+This MIDI stream then needs to be processed by a separate software synthesizer program.
 
 TODO:
     * Facilitate easier changing of instrument
-    * Add velocity control (??) by optional advanced, double-barrel light string?
-
+    
 Created by Scott Feister on Mon Aug  5 10:39:52 2019
+Updated January 9, 2020 for use in DeAnza laser harp project.
 """
 
 from datetime import datetime
 import numpy as np
 import pygame.midi
-import RPi.GPIO as GPIO  
+import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 
 class LightInstrument:
     """
     Class for a musical instrument played by breaking beams of light.
     
-    A LightInstrument incorporates several LightStrings.
-    Example: A laser harp, or an LED-based piano.
+    A LightInstrument incorporates several LightStrings, and, optionally, several ChordButtons (for changing chords).
+    Example: A laser harp, an LED-based piano, or a laser guitar.
     """
 
     def __init__(self, lstrings, open_chord=None, chordbtns=None):
@@ -175,4 +179,4 @@ class LightString:
         self.stop()
 
 if __name__ == "__main__":
-    s1 = LightString(pin=13)
+    pass
