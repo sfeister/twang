@@ -42,7 +42,7 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.6',
     ],
 
     # What does your project relate to?
@@ -83,9 +83,10 @@ setup(
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
-    #scripts = [
-    #    'bin/lstraj',
-    #]
+    scripts = [
+       'bin/startsynth',
+       'bin/stopsynth',
+    ]
     #entry_points={
     #    'console_scripts': [
     #        'lstraj=',
