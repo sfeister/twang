@@ -108,9 +108,9 @@ class ChordButton:
     
     -9999 is the only note allowed outside the integer range for midi notes.
     """
-    def __init__(self, pin, notes):
-        self.notes = notes # A list of midi notes in this chord. E.g. notes = [12, 18, 19, 30, 41]. Should match number of strings. 
-        notes_set = set(notes)
+    def __init__(self, pin, midinotes):
+        self.notes = midinotes # A list of midi notes in this chord. E.g. notes = [12, 18, 19, 30, 41]. Should match number of strings. 
+        notes_set = set(midinotes)
         notes_set.remove(-9999) # -9999 is a placeholder for non-pluckable string
         if not notes_set.issubset(set(range(128))): # Check that notes list contains only valid midi notes
             raise Exception("Invalid notes. All midi notes must be integers the range of 0 to 127.")
@@ -128,16 +128,17 @@ class LightString:
        
     """
     
-    def __init__(self, pin, note=72, pluckhold=100):
+    def __init__(self, pin, midinote=72, pluckhold=100):
         self.pin = pin # BCM pin number for phototransistor, on the Raspberry Pi
         self.pluckhold = pluckhold # Maximum milliseconds between subsequent plucks, implemented as a bouncetime in GPIO interrupt
         self.t_pluck = datetime.now() # Time of the most recent pluck (will just say now)
-        self.last_note = note # MIDI note
-        self.note = note # MIDI note
+        self.last_note = midinote # MIDI note
+        self.note = midinote # MIDI note
         self.playme = False # Whether or not to play the note at next opportunity
         
-        # GPIO set up as an input, pulled up, connected to 3V3 on button press  
-        # TODO: Set this correctly given our circuit
+        # GPIO set up as an input, pulled up
+        # (Button will be connected to GND on button press) 
+        # TODO: Set this correctly for phototransistors
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         
     def start(self):
