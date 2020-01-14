@@ -6,8 +6,6 @@ instrument.py: Class-based definitions of light-based instruments on Raspberry P
 Watches for plucks of light strings and pressing of buttons to change chords.
 Uses Raspberry Pi's hardware interrupts on digital GPIO pins for catching quick plucks of strings.
 Supports use of buttons to change chords ,facilitating not just laser harps, but laser guitars!
-Outputs a MIDI stream using PyGame.
-This MIDI stream then needs to be processed by a separate software synthesizer program.
 
 TODO:
     * Facilitate easier changing of instrument
@@ -17,13 +15,12 @@ Updated January 9, 2020 for use in DeAnza laser harp project.
 """
 
 from datetime import datetime
+import subprocess
+from time import sleep
 import numpy as np
-import pygame.midi
+import fluidsynth # sudo apt install fluidsynth; sudo pip3 install pyFluidSynth
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
-
-READYLED = 16
-GPIO.setup(READYLED, GPIO.OUT)
 
 class LightInstrument:
     """
@@ -33,13 +30,22 @@ class LightInstrument:
     Example: A laser harp, an LED-based piano, or a laser guitar.
     """
 
-    def __init__(self, lstrings, open_chord=None, chordbtns=None):
+    def __init__(self, lstrings, open_chord=None, chordbtns=None, beampin=23, midi_instrument=0, driver="jack", soundfont="/usr/share/sounds/sf2/Guitars-Universal-V1.5.sf2", gain=0.2):
         """ If open_chord is specified, overrides the lstring values """
 
         self.nstrings = len(lstrings) # Count the number of strings
         self.lstrings = lstrings # A list of LightString objects
         self.chordbtns = chordbtns # A list of ChordButton objects; if None, assume this is a harp-like instrument (no chord changes)
+        self.beampin = beampin # The GPIO output pin that controls the light source for the strings (e.g. the pin that controls the lasers)
+        self.driver = driver # Valid entries for driver are "alsa" or "jack" -- gets fed into pyfluidsynth
+        self.soundfont = soundfont # Path to the .sf2 soundfont file that you'd like to use
+        self.midi_instrument = midi_instrument # midi instrument you'd like to use, within the 0th bank of this soundfont
+        self.gain = gain # gain for fluidsynth that you'd like
+        self.fs = None
         
+        # Set up the light source pin as an output
+        GPIO.setup(beampin, GPIO.OUT, initial=0)
+
         # Initialize notes on the lstrings with an open chord
         if open_chord is None:
             self.open_chord = [lstring.note for lstring in lstrings] # The default chord is pulled from the strings as configured right now
@@ -60,15 +66,26 @@ class LightInstrument:
             # Initialize chord buttons array to all False (nothing pressed)
             self.chordarr = np.array([False for btn in self.chordbtns]) # A True/False list of whether chord buttons are pressed
         
-        # Start Pygame MIDI engine and set instrument output
-        pygame.midi.init()
-        self.player = pygame.midi.Output(0)
-        self.player.set_instrument(0)
-
     def start(self):
         """ Begins endless loop of the instrument """
+
+        # Start fluidsynth and set instrument output
+        print("Starting fluidsynth.")
+        self.fs = fluidsynth.Synth(samplerate=48000, gain=self.gain, channels=1)
+        self.fs.start(driver=self.driver)
+        sfid = self.fs.sfload(self.soundfont)
+        self.fs.program_select(0, sfid, 0, self.midi_instrument)
+
+        if self.driver == "jack":
+            # Make the jack audio connections of fluidsynth outputs to enable system playback
+            subprocess.call(["jack_connect", "fluidsynth:l_00", "system:playback_1"])
+            subprocess.call(["jack_connect", "fluidsynth:r_00", "system:playback_2"])
+                
+        # Play an intro diddy
+        self.lstrings[0].play(self.fs)
+
         print("Instrument starting, ready to play!")
-        #GPIO.output(READYLED, 1) # Turn on green "Ready-to-play" LED
+        GPIO.output(self.beampin, 1) # Turn on light source for the strings (e.g. turn on the lasers)
 
         for lstring in self.lstrings:
             lstring.start()
@@ -79,8 +96,17 @@ class LightInstrument:
             
             # Send MIDI signal for any strings that have been plucked since last loop iteration
             for lstring in self.lstrings:
-                lstring.check_and_play(self.player)
-                
+                lstring.check_and_play(self.fs)
+    
+    def stop(self):
+        for lstring in self.lstrings:
+            lstring.stop()            
+
+        GPIO.output(self.beampin, 0) # Turn off light source for the strings (e.g. turn off the lasers)
+        self.fs.delete()
+        self.fs = None
+
+
     def update_chord(self, chord):
         """ Update the currently implemented chord """
         for note, lstring in zip(chord, self.lstrings):
@@ -107,11 +133,8 @@ class LightInstrument:
                 self.update_chord(chord)
                         
     def __del__(self):
-        del self.player
-        pygame.midi.quit()
-        #GPIO.output(READYLED, 0) # Turn off green "Ready-to-play" LED
-        #GPIO.cleanup() # Not sure if this will work as hoped here... causes an error.
-
+        self.stop()
+        
 class ChordButton:
     """
     Class describing a pushbutton that, when pressed, changes the chord
@@ -121,7 +144,10 @@ class ChordButton:
     def __init__(self, pin, midinotes):
         self.notes = midinotes # A list of midi notes in this chord. E.g. notes = [12, 18, 19, 30, 41]. Should match number of strings. 
         notes_set = set(midinotes)
-        notes_set.remove(-9999) # -9999 is a placeholder for non-pluckable string
+        
+        if -9999 in notes_set:
+            notes_set.remove(-9999) # -9999 is a placeholder for non-pluckable string
+            
         if not notes_set.issubset(set(range(128))): # Check that notes list contains only valid midi notes
             raise Exception("Invalid notes. All midi notes must be integers the range of 0 to 127.")
 
@@ -170,20 +196,20 @@ class LightString:
         """Update the note for the next pluck """
         self.note = note # Update the midi note without affecting currently-playing sounds
 
-    def play(self, player):
-        """ Play sound using the PyGame Midi player"""
+    def play(self, fs):
+        """ Play sound using the Fluidsynth Midi player"""
         if self.note > -1: # Exclude case of -9999, which we are using to represent an unpluckable note
-            player.note_off(self.last_note, velocity=127) # Stop playing old sound
-            player.note_on(self.note, velocity=127) # Play new sound
+            fs.noteoff(0, self.last_note) # Stop playing old sound
+            fs.noteon(0, self.note, vel=127) # Play new sound
             self.last_note = self.note # Update the last_note variable
     
-    def check_and_play(self, player):
+    def check_and_play(self, fs):
         """ Check beam and play sound (if appropriate)
         Only play sound if it is waiting to be played.
         """       
         if self.playme:
             self.playme = False
-            self.play(player)
+            self.play(fs)
             
     def __del__(self):
         """ Shut down the string """

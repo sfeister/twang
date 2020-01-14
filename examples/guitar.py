@@ -74,5 +74,5 @@ if __name__ == "__main__":
     lstrings[5] = LightString(pin=5, midinote=opennotes[5], pluckhold=20)
     
     # Combine the buttons and strings together into an instrument!
-    myguitar = LightInstrument(lstrings, chordbtns=cbuttons, midi_instrument=1)
+    myguitar = LightInstrument(lstrings, chordbtns=cbuttons, midi_instrument=1, gain=1.0)
     myguitar.start()

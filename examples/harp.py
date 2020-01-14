@@ -30,5 +30,5 @@ if __name__ == "__main__":
     lstrings[9] = LightString(pin=17, midinote=75)
     
     ## Combine the strings together into a playable instrument!
-    myharp = LightInstrument(lstrings, midi_instrument=8)
+    myharp = LightInstrument(lstrings, midi_instrument=8, gain=1.0)
     myharp.start()
