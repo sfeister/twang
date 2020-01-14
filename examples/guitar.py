@@ -7,7 +7,7 @@ Created by Scott Feister on Tue Aug 13 20:08:07 2019
 """
 
 #from lightinstrument4 import LightInstrument, ChordButton, LightString
-from midinotes import getnote
+from twang import LightString, LightInstrument, ChordButton, getnote
 import numpy as np
 
 # Standard guitar tuning: E2–A2–D3–G3–B3–E4
@@ -59,19 +59,20 @@ def midify(relnotes):
 if __name__ == "__main__":
     # Button pins for chords, and their associated chords
     cbuttons = [None]*4
-    cbuttons[0] = ChordButton(12, midify(C))
-    cbuttons[1] = ChordButton(12, midify(G))
-    cbuttons[2] = ChordButton(12, midify(Am))
-    cbuttons[3] = ChordButton(12, midify(F))
+    cbuttons[0] = ChordButton(pin=25, midinotes=midify(C))
+    cbuttons[1] = ChordButton(pin=22, midinotes=midify(G))
+    cbuttons[2] = ChordButton(pin=27, midinotes=midify(Am))
+    cbuttons[3] = ChordButton(pin=17, midinotes=midify(F))
     
     # Phototransistor pins for strings (low-note strings first)
     lstrings = [None]*6
-    lstrings[0] = LightString(3, note=opennotes[0])
-    lstrings[1] = LightString(4, note=opennotes[1])
-    lstrings[2] = LightString(5, note=opennotes[2])
-    lstrings[3] = LightString(6, note=opennotes[3])
-    lstrings[4] = LightString(7, note=opennotes[4])
-    lstrings[5] = LightString(8, note=opennotes[5])
+    lstrings[0] = LightString(pin=20, midinote=opennotes[0], pluckhold=20)
+    lstrings[1] = LightString(pin=16, midinote=opennotes[1], pluckhold=20)
+    lstrings[2] = LightString(pin=13, midinote=opennotes[2], pluckhold=20)
+    lstrings[3] = LightString(pin=12, midinote=opennotes[3], pluckhold=20)
+    lstrings[4] = LightString(pin=6, midinote=opennotes[4], pluckhold=20)
+    lstrings[5] = LightString(pin=5, midinote=opennotes[5], pluckhold=20)
     
     # Combine the buttons and strings together into an instrument!
-    LightInstrument(lstrings, chordbtns=cbuttons)
+    myguitar = LightInstrument(lstrings, chordbtns=cbuttons, midi_instrument=1)
+    myguitar.start()
