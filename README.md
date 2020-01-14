@@ -21,7 +21,7 @@ This toolkit has software dependencies:
 * fluidsynth
 
 It also has Python package dependencies:
-* adafruit-gpio
+* rpi.gpio
 * gpiozero
 * pygame
 * numpy
@@ -29,7 +29,7 @@ It also has Python package dependencies:
 And the following additional dependencies:
 * fluid-soundfont-gs (or any "Soundfont" for playback of MIDI)
 
-The adafruit-gpio and gpiozero Python libraries enables us to measure digital inputs on the Raspberry Pi: useful for noticing the fast change in signal from a phototransistor when the laser beam is blocked, and also useful for noticing when a button is pressed. The pygame Python library lets us generate MIDI signals representing musical notes. These MIDI signals are processed by JACK and fluidsynth (a 'software synthesizer'). Together, these enable low-latency audio mixing of the sounds of "plucked" harp strings on our external speakers.
+The rpi.gpio and gpiozero Python libraries enables us to measure digital inputs on the Raspberry Pi: useful for noticing the fast change in signal from a phototransistor when the laser beam is blocked, and also useful for noticing when a button is pressed. The pygame Python library lets us generate MIDI signals representing musical notes. These MIDI signals are processed by JACK and fluidsynth (a 'software synthesizer'). Together, these enable low-latency audio mixing of the sounds of "plucked" harp strings on our external speakers.
 
 These dependencies, and a few others, can be installed onto your Raspberry Pi (Raspbian Jessie) as follows:
 
@@ -40,8 +40,7 @@ sudo apt update
 
 2. Next, install all the dependencies via:
 ```
-sudo apt install jackd fluidsynth python3-pip python3-numpy python3-gpiozero fluid-soundfont-gs
-sudo pip3 install adafruit-gpio
+sudo apt install jackd fluidsynth python3-pip python3-numpy python3-gpiozero python3-rpi.gpio fluid-soundfont-gs
 ```
 
 You may also install these optional software for additional control and troubleshooting of your software synthesizer setup:

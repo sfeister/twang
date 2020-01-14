@@ -9,7 +9,7 @@ jackd -r -d alsa &
 sleep  3
 
 echo "Attempting to start fluidsynth"
-fluidsynth -jsi -a jack -m alsa_seq --portname="fluidsynth" -r 48000 /usr/share/sounds/sf2/Guitars-Universal-V1.5.sf2 &
+fluidsynth -jsi -g 5 -a jack -m alsa_seq --portname="fluidsynth" -r 48000 /usr/share/sounds/sf2/Guitars-Universal-V1.5.sf2 &
 sleep 12 #TODO: Replace with a wait for fluidsynth to finish loading
 
 echo "Attempting to connect Midi ports (Midi Through to Fluidsynth)"

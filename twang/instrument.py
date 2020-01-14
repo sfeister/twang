@@ -22,7 +22,7 @@ import pygame.midi
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 
-READYLED = 10
+READYLED = 16
 GPIO.setup(READYLED, GPIO.OUT)
 
 class LightInstrument:
@@ -68,7 +68,7 @@ class LightInstrument:
     def start(self):
         """ Begins endless loop of the instrument """
         print("Instrument starting, ready to play!")
-        GPIO.output(READYLED, 1) # Turn on green "Ready-to-play" LED
+        #GPIO.output(READYLED, 1) # Turn on green "Ready-to-play" LED
 
         for lstring in self.lstrings:
             lstring.start()
@@ -109,7 +109,7 @@ class LightInstrument:
     def __del__(self):
         del self.player
         pygame.midi.quit()
-        GPIO.output(READYLED, 0) # Turn off green "Ready-to-play" LED
+        #GPIO.output(READYLED, 0) # Turn off green "Ready-to-play" LED
         #GPIO.cleanup() # Not sure if this will work as hoped here... causes an error.
 
 class ChordButton:
