@@ -1,0 +1,12 @@
+#!/bin/bash
+# Starts your light instrument as a background process
+
+if [ -z "$INSTRUMENT" ]
+then
+    echo "\$INSTRUMENT variable empty. Setting to default value: /home/pi/guitar.py"
+    export INSTRUMENT="/home/pi/guitar.py"
+fi
+
+echo "\$INSTRUMENT environment variable: $INSTRUMENT"
+echo "Starting jack, synthesizer, and instrument."
+python3 $INSTRUMENT &

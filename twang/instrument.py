@@ -10,17 +10,23 @@ Supports use of buttons to change chords ,facilitating not just laser harps, but
 TODO:
     * Facilitate easier changing of instrument
     
+    
+Python script for catching Ctrl + C / SIGINT / SIGTERM copied from https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
+
 Created by Scott Feister on Mon Aug  5 10:39:52 2019
 Updated January 9, 2020 for use in DeAnza laser harp project.
 """
 
 from datetime import datetime
+from signal import signal, SIGINT, SIGTERM
+from sys import exit
 import subprocess
 from time import sleep
 import numpy as np
 import fluidsynth # sudo apt install fluidsynth; sudo pip3 install pyFluidSynth
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
+
 
 class LightInstrument:
     """
@@ -45,6 +51,13 @@ class LightInstrument:
         
         # Set up the light source pin as an output
         GPIO.setup(beampin, GPIO.OUT, initial=0)
+        
+        # Do a little blinky show
+        for i in range(4):
+            GPIO.output(self.beampin, 1) # Turn off light source for the strings (e.g. turn off the lasers)
+            sleep(0.1)
+            GPIO.output(self.beampin, 0) 
+            sleep(0.1)
 
         # Initialize notes on the lstrings with an open chord
         if open_chord is None:
@@ -68,6 +81,9 @@ class LightInstrument:
         
     def start(self):
         """ Begins endless loop of the instrument """
+        # Tell Python to run the handler() function when SIGINT (Ctrl + C) or SIGTERM (pkill?) is recieved
+        signal(SIGINT, self.handler)
+        signal(SIGTERM, self.handler)
 
         # Start fluidsynth and set instrument output
         print("Starting fluidsynth.")
@@ -106,7 +122,6 @@ class LightInstrument:
         self.fs.delete()
         self.fs = None
 
-
     def update_chord(self, chord):
         """ Update the currently implemented chord """
         for note, lstring in zip(chord, self.lstrings):
@@ -131,9 +146,14 @@ class LightInstrument:
                     
                 # Apply the new chord notes to the lstrings
                 self.update_chord(chord)
-                        
-    def __del__(self):
+    def handler(self, signal_received, frame):
+        # If interrupt signal is sent, run this script
+        print('SIGINT, SIGTERM, or CTRL-C detected. Exiting gracefully.')
         self.stop()
+        exit(0)
+                        
+    #def __del__(self):
+    #    self.stop()
         
 class ChordButton:
     """
@@ -211,9 +231,9 @@ class LightString:
             self.playme = False
             self.play(fs)
             
-    def __del__(self):
-        """ Shut down the string """
-        self.stop()
+    #def __del__(self):
+    #    """ Shut down the string """
+    #    self.stop()
 
 if __name__ == "__main__":
     pass

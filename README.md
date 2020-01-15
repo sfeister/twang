@@ -5,7 +5,7 @@ More generally, this Python library could be adapted for any beambreak-based ins
 
 The Python scripts go along with a middle school project to create a harp where the strings are laser beams. Goals of this wider project are learning about circuits, CAD, and computer programming. See our [Hackaday project page](https://hackaday.io/project/28159) for more details!
 
-The scripts are meant to be run in Python3.7+. They were tested on the Raspberry Pi Zero W with the "Raspbian Stretch" operating system.
+The scripts are meant to be run in Python3.6+. They were tested on the Raspberry Pi Zero W with the "Raspbian Buster" operating system.
 
 ## Note to the Reader
 The target audience for this README is *not* the middle school student, and not necessarily even the middle school teacher, but someone already familiar with installing packages on Linux systems. We will be giving our middle school students a microSD card with everything "ready to go". They won't need to figure out how to install all of the dependencies listed below! If you are a teacher and are having trouble following the instructions below, please reach out to me directly (Scott Feister), and I will be happy to share with you a microSD card image that has everything already installed.
@@ -15,7 +15,7 @@ You will need to build certain circuits before running the Python scripts; for e
 
 For more information on the physical construction of the five-string laser harp we are using for the middle school project, you should follow instructions on our [Hackaday project page](https://hackaday.io/project/28159). As of Spring 2018, we are in the process of writing our instructions, so stay 'tuned'!
 
-## Installing dependencies on the Raspberry Pi
+## Installing dependencies on your Raspberry Pi
 This toolkit has software dependencies:
 * jackd (JACK Audio Connection Kit - http://www.jackaudio.org/)
 * fluidsynth
@@ -23,76 +23,71 @@ This toolkit has software dependencies:
 It also has Python package dependencies:
 * rpi.gpio
 * gpiozero
-* pygame
 * numpy
+* pyfluidsynth
 
 And the following additional dependencies:
 * fluid-soundfont-gs (or any "Soundfont" for playback of MIDI)
 
-The rpi.gpio and gpiozero Python libraries enables us to measure digital inputs on the Raspberry Pi: useful for noticing the fast change in signal from a phototransistor when the laser beam is blocked, and also useful for noticing when a button is pressed. The pygame Python library lets us generate MIDI signals representing musical notes. These MIDI signals are processed by JACK and fluidsynth (a 'software synthesizer'). Together, these enable low-latency audio mixing of the sounds of "plucked" harp strings on our external speakers.
+The rpi.gpio and gpiozero Python libraries enables us to measure digital inputs on the Raspberry Pi: useful for noticing the fast change in signal from a phototransistor when the laser beam is blocked, and also useful for noticing when a button is pressed. The pyfluidsynth Python library lets us generate MIDI signals representing musical notes, and control fluidsynth. MIDI signals and synthesizer audio is processed by JACK and fluidsynth (a 'software synthesizer'). Together, these enable low-latency audio mixing of the sounds of "plucked" harp strings on our external speakers.
 
-These dependencies, and a few others, can be installed onto your Raspberry Pi (Raspbian Jessie) as follows:
+These dependencies, and a few others, can be installed onto your Raspberry Pi (tested on Raspbian Buster) as follows:
 
-1. First, update your Raspbian Jessie package repositories:
-```
+1. First, update your Raspbian Buster package repositories:
+```bash
 sudo apt update
 ```
 
-2. Next, install all the dependencies via:
-```
+2. Next, install all the dependencies we discussed above via:
+```bash
 sudo apt install jackd fluidsynth python3-pip python3-numpy python3-gpiozero python3-rpi.gpio fluid-soundfont-gs
+sudo pip3 install pyfluidsynth
 ```
 
-You may also install these optional software for additional control and troubleshooting of your software synthesizer setup:
-```
+You may also install optional additional software for additional control and troubleshooting of your software synthesizer setup:
+```bash
 sudo apt install qsynth patchage qjackctl vmpk
 ```
 
-Qsynth is a graphical interface for fluidsynth. Qjackctl is a graphical interface for JACK.  Patchage is a graphical interface for making software connections between various audio and MIDI components running in JACK. Vmpk is a software musical keyboard.
+The optional software is as follows: Qsynth is a graphical interface for fluidsynth. Qjackctl is a graphical interface for JACK.  Patchage is a graphical interface for making software connections between various audio and MIDI components running in JACK. Vmpk is a software musical keyboard.
 
-## Downloading this library
-Download and unzip all files in this repository into a local directory on the Raspberry Pi.
+### Installing twang on your Raspberry Pi
+After installing all of the required dependencies (see previous section), you are ready to install **twang**.
+
+One way to install **twang** is via
+```bash
+sudo pip3 install git+https://github.com/phyzicist/twang.git
+```
+
+To update **twang** at a later date
+```bash
+sudo pip3 install --upgrade git+https://github.com/phyzicist/twang.git
+```
+
+## Command-line tools
 
 ## Running the harp
 After physical construction of the laser harp:
 
 1. Check you have audio output working with your speakers. Test this by trying to play a sound file in a standard Raspbian sound player, like Audacity. If you don't hear sound, you can change between HDMI audio, analog audio, and other audio output options by left-clicking the volume icon found in the upper right corner of the Raspbian desktop.
 
-2. If you are running your Pi with a display (connected to a monitor or TV), you can skip to the next step. If you are running without a display (no monitor, e.g. logging in via ssh), run, from the command line:
-```export DISPLAY=:0```
+2. Create an instrument file. For example, you may choose to download and copy "harp.py" from the examples/ folder of this repository into "/home/pi/guitar.py" of your Raspberry Pi.
 
-3. Next, start the JACK audio server from the command line:
-```jackd -d alsa -n 16 &```
+3. Set the environment variable "INSTRUMENT" to specify the python script you'd like to use, e.g., harp.py from this repository's examples folder. You can do this by the following command:
+```export INSTRUMENT=/home/pi/guitar.py```
 
-4. Once the JACK server is started, navigate into the source directory and run:
-```python laserharp.py ```
+4. Finally, start your instrument (the JACK audio server, fluidsynth, and your instrument script), all by a single call to the included 'startsynth' script (located in the bin/ folder of this repository; it should be automagically installed into your path when you install the twang python package.)
+```startsynth```
 
-## Troubleshooting the harp
-Several Python scripts for testing and running the five-string laser harp are included:
+## Uninstalling
 
-Python script | Action
---- | ---
-test_button.py | Waits for physical button press
-test_lasers.py | Flashes the lasers three times
-test_ADC.py | Reads and displays values from the MCP3008 analog-to-digital converter (ADC)
-test_sound.py | Plays harp sounds, testing the audio mixer
-test_laserbutton.py | Combined test of the lasers and physical button
-test_calibrate.py | Combined test of on/off laser calibration (checking quality of physical beam break)
-test_debugger.py | Combined test intended for comprehensive debugging
-laserharp.py | Runs the laser harp as a playable instrument
-
-Rather than jumping right to laserharp.py, it is very useful to run the "test_[something].py" scripts when building and troubleshooting the laser harp. The "test_debugger.py" script is especially helpful. Run this script by:
-``` python test_debugger.py ```
-You will still need to check audio output and start the JACK server before running any tests involving audio (follow steps 1 - 3 of the previous section).
+To uninstall **twang**
+```bash
+pip3 uninstall twang
+```
 
 ## Credits
 This project was created by Alex Wulff (DeAnza Academy of Technology and the Arts), Scott Feister (California State University Channel Islands), and Phil Hampton (California State University Channel Islands). We originally designed, built, and interactively displayed the five-string laser harp for K-8 children at the [CSUCI Annual Science Carnival](https://www.csuci.edu/sciencecarnival/) in November 2017. It was a big hit, so we have decided to develop it into a middle school project!
-
-### Sound samples
-Audio samples included in this repository were downloaded from the Philharmonia Orchestra, then snipped and amplified in the free, open-source [Audacity audio editor](https://www.audacityteam.org/). Each note is exported as a .wav file and saved in the "sounds" directory.
-
-More freely useable sound samples are available at:
-http://www.philharmonia.co.uk/explore/sound_samples
 
 ### Circuit diagrams
 We made the laser harp circuit diagrams using the free, open-source vector graphics software [Inkscape](https://www.audacityteam.org/). Vector graphics (*.svg* format) for circuit elements, warning symbols, and more were gathered from [Wikimedia Commons](https://commons.wikimedia.org) and incorporated into the laser harp diagrams. I found this [collection of electrical symbols](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg) and this [laser warning symbol](https://commons.wikimedia.org/wiki/File:Laser-symbol.svg) particularly helpful.
