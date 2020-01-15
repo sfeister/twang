@@ -15,7 +15,7 @@
    version="1.1"
    id="svg5567"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="FiveStringCircuitDiagram.svg">
+   sodipodi:docname="GuitarCircuitDiagram.svg">
   <defs
      id="defs5561">
     <marker
@@ -1439,7 +1439,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
