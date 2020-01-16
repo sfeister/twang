@@ -74,11 +74,11 @@ If you are going to be panel-mounting your power button and/or chord buttons, go
 
 ##### At the end of this section you should:
 
-- Have all of your phototransistors fully-enclosed into their fully-hammered- together 3D-printed mounts
+- Have all of your phototransistors fully-enclosed into their fully-hammered- together 3D-printed mounts. (See example image of [constructed catchers](img/constructedcatchers.JPG).)
 
 ##### Instructions:
 
-1. Check the quality of your barrel. Hold it up to the light so that you can see that light is getting through the central hole. Scrape out the centra hole with a wire/paper-clip as needed to clear out the extra PLA filament that may have accumulated in the hole.
+1. Check the quality of your barrel. Hold it up to the light so that you can see that light is getting through the central hole. Scrape out the central hole with a wire/paper-clip as needed to clear out the extra PLA filament that may have accumulated in the hole. (See example image of a [clean barrel](img/cleanbarrel.JPG).)
 
 2. Push the phototransistor into the mount so that the two wires poke out the back. You may wish to close one eye while doing this to improve your ability to get the metal leads through the two holes.
 
@@ -94,9 +94,9 @@ If you are going to be panel-mounting your power button and/or chord buttons, go
 
 ##### Note:
 
-If you are using lasers rather than LEDs as your light source, adult supervision at your table is required for the entirety of this section. Also, you must read the Laser Safety guide before proceeeding.
+If you are using lasers rather than LEDs as your light source, adult supervision at your table is required for the entirety of this section. Also, you must read the [Laser Safety Guide](Safety.md) before proceeeding.
 
-Second, this part is kind of tricky but is essential to the functionality of your light instrument! You may wish to have help from someone who has done the alignment before, to show you the ropes.
+This section is kind of tricky but is essential to the functionality of your light instrument! You may wish to have help from someone who has done the alignment before, to show you the ropes.
 
 ##### Parts needed (for each string):
 
@@ -112,7 +112,7 @@ Second, this part is kind of tricky but is essential to the functionality of you
 
 ##### Instructions
 
-[REMINDER: This section is discussed at length in the Laser Safety Guide! If you are using lasers, read that guide completely before proceeding.]
+[REMINDER: This section is discussed at length in the [Laser Safety Guide](Safety.md)! If you are using lasers, read that guide completely before proceeding.]
 
 [NOTE: If you are using lasers, they should not be powered on yet.]
 
@@ -144,7 +144,7 @@ Second, this part is kind of tricky but is essential to the functionality of you
    
    3. Glue or otherwise mount the LED into place.
 
-6. Hook up a multimeter to each phototransistor (make sure + goes to the long lead!), and set it to measure the effective resistance. Verify that when lasers/LEDs are blocked, each phototransistor has a resistance at least five times greater than 6.8 kiloOhm, and that when unblocked, the resistance is at least five times less than 6.8 kiloOhm. You may wish to make a table to record the "resistance when blocked" and "resistance when unblocked" for each phototransistor. This will be a good record to keep for future troubleshooting with your teacher.
+6. Hook up a multimeter to each phototransistor (make sure + goes to the long lead!), and set it to measure the effective resistance. You may wish to make a table to record the "resistance when blocked" and "resistance when unblocked" for each phototransistor. This will be a good record to keep for future troubleshooting with your teacher. When lasers/LEDs are blocked by your finger, each phototransistor should have an effective resistance of at least five times greater than 6.8 kiloOhms (e.g., I measured about 600 kiloOhms). When the laser is shining  unblocked, each should have an effective resistance of at least five times less than 6.8 kiloOhm (e.g., I measured about 100 Ohms). This will ensure a clean on/off digital signal, when paired with a 3.3 V power supply and a 6.8 kiloOhm resistor in a later step.
 
 ## Gather your parts for the circuits
 

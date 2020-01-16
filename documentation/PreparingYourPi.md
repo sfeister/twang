@@ -239,3 +239,7 @@ sudo chmod +x /usr/local/bin/listen-for-shutdown.py
 sudo update-rc.d listen-for-shutdown.sh defaults
 sudo /etc/init.d/listen-for-shutdown.sh start
 ```
+
+## What's Next?
+
+Now that you have set up your Raspberry Pi and its software, you are ready to assess whether you will use lasers, LEDs, or something else in your project! Before you decide, please read the next section of this documentation: [Safe Design and Usage of a Laser Instrument](Safety.md). 

@@ -4,8 +4,6 @@ By Dr. Scott Feister
 
 January 16, 2020
 
-
-
 Lasers, while wonderful in many respects, pose a serious and permanent accidental damage risk to eyes. In this guide, I will walk you through several safety considerations for constructing laser-based instruments in the middle school environment. These safety considerations do not apply to instruments that use LEDs instead of lasers. (LEDs pose none of the safety risks of lasers, but also have different qualities.) The target audience for this guide is: first the teacher, and then middle school students. Please read this guide in its entirety before deciding whether to incorporate lasers into your instrument.
 
 ## Additional Resources on Laser Safety
@@ -44,7 +42,8 @@ Lasers may become even more dangerous after striking items like reflective surfa
 
 ##### Prior to leaving the table, the supervising adult should perform a careful check of the following:
 
-* Check for stray light and for firmness of the glued lasers
+* Check for stray light using a white paper or tissue. (See example image of [stray light](img/straylight.JPG).)
+* Check for firmness of the glued lasers & catchers
 
 ## Laser Safety Considerations for Final Product
 
@@ -89,3 +88,7 @@ Even after verbally giving your instructions, it is your responsibility to stay 
 * If you (or anyone else) notices any funny smells or see any smoke, take back the instrument immediately and shut it off.
 
 People using your laser instrument may not fully appreciate the dangers of your instrument, but *you* do. So, **remember**, you are the authority and it is your responsibility to intervene!
+
+## What's Next?
+
+Now that you have set up your Raspberry Pi and its software, and become informed on unique safety considerations for a laser instrument, you are ready to begin physical construction and implementation of circuits. You can learn how to do this in the next section of this documentation: [Building the Instrument Hardware](Hardware.md).
