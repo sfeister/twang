@@ -143,6 +143,16 @@ sudo apt -y install jackd fluidsynth python3-pip python3-numpy python3-gpiozero 
 sudo pip3 install pyfluidsynth
 ```
 
+###### Download a high-quality-guitar soundfont
+
+"Soundfonts" are collections of musical instrument sounds. We will download a high-quality soundfont filled with a variety of guitar sounds. On the same website, there are also high-quality soundfonts for orchestras, piano, harp, and more!
+
+Using your Raspberry Pi's web browser, go to the [Soundfonts4U website](https://sites.google.com/site/soundfonts4u/). Scroll down to the "Guitars-Universal-V1.5.sf2" link, follow it, and download it. Then, move that file into the folder "/usr/share/sounds/sf2/". For example, if you downloaded the file into the "Downloads" folder, you can move it with the command:
+
+```bash
+sudo mv ~/Downloads/Guitars-Universal-V1.5.sf2 /usr/share/sounds/sf2/
+```
+
 ###### Install twang and example instruments
 
 Install twang.
