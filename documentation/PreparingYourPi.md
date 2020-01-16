@@ -1,10 +1,10 @@
 # Preparing your Raspberry Pi to be an Instrument
 
-By Scott Feister
+By Dr. Scott Feister
 
-January 15, 2019
+January 15, 2020
 
-In the following several sections, I will walk you through the first setup of your Raspberry Pi, the Pi Stereo Bonnet, and the *twang* software environment. The target audience for this guide is a middle school student or teacher.
+In this guide, I will walk you through the first setup of your Raspberry Pi, the Pi Stereo Bonnet, and the *twang* software environment. The target audience is a middle school student or teacher. I assume no experience with Raspberry Pi and Linux, though it might be helpful to have access to someone with experience at points in this guide!
 
 ## Set up your SD card
 
