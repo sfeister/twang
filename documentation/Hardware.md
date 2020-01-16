@@ -42,7 +42,7 @@ Here are some factors to consider during your design and construction of your in
 
 * Don't forget about the power button! Plan to mount that button somewhere people won't accidentally press it while playing your instrument.
 
-* If you are going to use lasers, make sure to carefully follow the design suggestions in the Laser Safety guide, especially designing in physical safeguards as discussed in that guide. However, **do not install any lasers or phototransistors yet** (this will be covered in a future section of this guide.)
+* If you are going to use lasers, make sure to carefully follow the design suggestions in the [Laser Safety Guide](Safety.md), especially designing in physical safeguards as discussed in that guide. However, **do not install any lasers or phototransistors yet** (this will be covered in a future section of this guide.)
 
 * You can use your light holders and light catchers that you 3D printed to get a sense of how much space they'll take up, but **don't glue your holders/catchers yet**.
 
