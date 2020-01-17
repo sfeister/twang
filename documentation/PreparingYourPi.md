@@ -165,7 +165,7 @@ Install twang.
 sudo pip3 install git+https://github.com/phyzicist/twang.git
 ```
 
-Download and extract the example instruments from the twang GitHub repository. E.g. here is one way to download all example instruments into a folder called "twang_examples" in your home folder:
+Download and extract the example instruments from the twang GitHub repository. E.g. here is one way to download all example instruments, creating and/or overwriting a folder called "twang_examples" in your home folder:
 
 ```bash
 cd ~

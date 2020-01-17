@@ -4,10 +4,10 @@ import subprocess
 import RPi.GPIO as GPIO
 
 LEDPIN = 23 # Our chosen LED pin to blink during shutdown (laser pin)
-PWRBTN = 3
+PWRBTN = 3 # FYI, Pin 3 on the Pi ships with a physical pull-up resistor attached
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(PWRBTN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(PWRBTN, GPIO.IN)
 
 GPIO.wait_for_edge(PWRBTN, GPIO.FALLING)
 
