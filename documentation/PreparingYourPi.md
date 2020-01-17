@@ -105,7 +105,17 @@ Craving more exploration before moving on? Check out [this exploratory pathway](
 
 We will use the [Pi Stereo Speaker Bonnet](https://www.adafruit.com/product/3346) to amplify and play audio out of external speakers. Getting this part set up involves some work with both soldering and software!
 
-Follow all of [these instructions](https://learn.adafruit.com/adafruit-speaker-bonnet-for-raspberry-pi) to get up and running with your Pi Stereo Speaker Bonnet. This will take a little while! Make sure to do the sound tests at the end of the tutorial, to verify that everything is working right. Note that while the sound test worked for me during setup, the alsamixer volume control did not work correctly (volume is stuck at 100%, which is alright -- but maybe you'll have more success!).
+Follow [these instructions](https://learn.adafruit.com/adafruit-speaker-bonnet-for-raspberry-pi) to get up and running with your Pi Stereo Speaker Bonnet. Take note! When you eventually get to the step where you run:
+
+```bash
+curl -sS https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2samp.sh | bash
+```
+
+You should answer **No** to the question *'Activate /dev/zero' playback in the background?* *
+
+All this will take a little while! Make sure to do the sound tests at the end of the tutorial, to verify that everything is working right. Note that while the sound test worked for me during setup, the alsamixer volume control did not work correctly (volume is stuck at 100%, which is alright -- but maybe you'll have more success!).
+
+\* Technical note: Enabling background playback seems to lock the "hw:0" audio interface and prevent us from starting jackd.
 
 ## Install twang software and add-ons
 
