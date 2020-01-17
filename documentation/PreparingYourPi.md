@@ -53,6 +53,8 @@ Once your download has completed, plug your microSD card adapter into your compu
 
 Make all the connections, boot up, and familiarize yourself with the Raspberry Pi. With one caveat, you should follow [these instructions](https://projects.raspberrypi.org/en/projects/raspberry-pi-getting-started) from RaspberryPi.org. The caveat is, when you get to the page titled "Set up your SD card", you can skip that page because you've already set up your SD card!
 
+*Note*: Everything in this tutorial will take quite a bit longer on a Pi Zero W than on a Pi 3. So, if you have both avaiable to you... I'd vote use the the Pi 3!
+
 ## Get oriented in Raspbian
 
 ##### Parts needed:
