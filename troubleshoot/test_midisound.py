@@ -29,20 +29,20 @@ if __name__ == '__main__':
     print("Press Ctrl + C to quit early.")
     # 12 and 19 are fine instruments
     for i in range(12):
-        fs.noteon(0, 60+i, 127)
+        fs.noteon(0, 60+i, vel=127)
         sleep(0.3)
-        fs.noteoff(0, 60+i, 127)
+        fs.noteoff(0, 60+i, vel=127)
         sleep(0.05)
         
     for i in range(11):
-        fs.noteon(0, 60+i, 127)
+        fs.noteon(0, 60+i, vel=127)
         sleep(0.05)
-        fs.noteoff(0, 60+i, 127)
+        fs.noteoff(0, 60+i, vel=127)
         sleep(0.01)
 
-    fs.noteon(0, 60+11, 127)
+    fs.noteon(0, 60+11, vel=127)
     sleep(3)
-    fs.noteoff(0, 60+11, 127)
+    fs.noteoff(0, 60+11, vel=127)
     sleep(0.5)
 
     fs.delete()
