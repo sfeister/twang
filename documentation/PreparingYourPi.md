@@ -101,7 +101,7 @@ Craving more exploration before moving on? Check out [this exploratory pathway](
 
 We will use the [Pi Stereo Speaker Bonnet](https://www.adafruit.com/product/3346) to amplify and play audio out of external speakers. Getting this part set up involves some work with both soldering and software!
 
-Follow all of [these instructions](https://learn.adafruit.com/adafruit-speaker-bonnet-for-raspberry-pi) to get up and running with your Pi Stereo Speaker Bonnet. This will take a little while! Make sure to do the speaker tests at the end of the tutorial, to verify that everything is working right.
+Follow all of [these instructions](https://learn.adafruit.com/adafruit-speaker-bonnet-for-raspberry-pi) to get up and running with your Pi Stereo Speaker Bonnet. This will take a little while! Make sure to do the sound tests at the end of the tutorial, to verify that everything is working right. Note that while the sound test worked for me during setup, the alsamixer volume control did not work correctly (volume is stuck at 100%, which is alright -- but maybe you'll have more success!).
 
 ## Install twang software and add-ons
 
@@ -117,7 +117,7 @@ Follow all of [these instructions](https://learn.adafruit.com/adafruit-speaker-b
 
 - Lots of experience typing commands into the terminal
 
-- The ability to run "stopsynth" and "startsynth" from the terminal, making your speakers pop and hiss
+- The ability to run "stopsynth" and "startsynth" from the terminal
 
 - An instrument that boots on startup
 
@@ -129,7 +129,7 @@ The following is an abridged/modified version of the instructions for installing
 
 ###### Update system and install software dependencies
 
-Open the terminal and `update `your software fully.
+Open the terminal and update your software fully. (Note: This might take a while!)
 
 ```bash
 sudo apt -y update

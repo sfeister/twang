@@ -22,7 +22,7 @@ If you are a middle schooler, middle school teacher, or someone just interested 
 
 We may give our middle school students a microSD card with everything "ready to go". They won't need to figure out how to install all of the dependencies listed below! If you are a teacher and are having trouble following the instructions below, please reach out to me directly (Scott Feister), and I will be happy to share with you a microSD card image that has everything already installed.
 
-See our [Hackaday project page](https://hackaday.io/project/28159) for more details, though it may not be as up-to-date!
+See our [Hackaday project page](https://hackaday.io/project/28159) for a few additional details, though it may not be as up-to-date!
 
 ## Physical pre-requisites
 
