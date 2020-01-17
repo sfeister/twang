@@ -140,10 +140,15 @@ sudo apt -y update
 sudo apt -y upgrade
 ```
 
-Install all of the required and optional software dependencies for twang.
+Install the required and optional software dependencies for twang. Note that the following is one SINGLE, long line.
 
 ```bash
 sudo apt -y install jackd fluidsynth python3-pip python3-numpy python3-gpiozero python3-rpi.gpio fluid-soundfont-gs qsynth patchage qjackctl vmpk
+```
+
+And one more dependency, pyfluidsynth:
+
+```bash
 sudo pip3 install pyfluidsynth
 ```
 
@@ -210,7 +215,7 @@ export INSTRUMENT="/home/pi/twang_examples/guitar.py"
 ps -e | grep jack > /dev/null 2>&1 || (startsynth > /dev/null 2>&1 ; echo "Starting synthesizer")
 ```
 
-3. Press ```Ctrl + X``` and then ```Y``` when prompted, to save the file and close the editor.
+3. Press ```Ctrl + X``` and then ```Y``` and ```Enter``` when prompted, to save the file and close the editor.
 
 ###### Add software for a power button
 
