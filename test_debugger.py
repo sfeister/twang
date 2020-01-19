@@ -9,10 +9,6 @@
 
 # Must install the MCP3008 python package first. Software SPI, not hardware.
 # Follow MCP3008 instructions at: https://learn.adafruit.com/raspberry-pi-analog-to-digital-converters/mcp3008
-
-# Start jack before running this script, e.g. via
-#   export DISPLAY=:0 
-#   jackd -d alsa -n 16 &
 # 
 # Documentation on initializing LED, Button:
 #   https://gpiozero.readthedocs.io/en/latest/recipes.html
@@ -21,16 +17,14 @@ import os
 from time import sleep
 from datetime import datetime
 import numpy as np
-import pyo
+import pygame.mixer
+from pygame.mixer import Sound
+from pygame.mixer import Channel
 from Adafruit_MCP3008 import MCP3008
 from gpiozero import LED, Button
 
 
 ################## INITIALIZATION ###########################
-    
-## INITIALIZE THE SOUND MIXER
-s = pyo.Server(duplex=0).boot() # Boot the pyo server
-s.start()
 
 nstrings = 5 # Number of harp strings
 
@@ -44,8 +38,13 @@ sounds = [None]*nstrings
 tpluck = [None]*nstrings
 holds = [None]*nstrings
 
+## INITIALIZE THE SOUND MIXER
+pygame.mixer.pre_init(44100, -16, nstrings, )
+pygame.mixer.init()
+
 for i in range(nstrings):
-    sounds[i] = pyo.SfPlayer(os.path.join(notedir, notes[i] + ext))
+    sounds[i] = Sound(os.path.join(notedir, notes[i] + ext))
+    chans[i] = Channel(i)
     tpluck[i] = datetime.now() # Would be better if it was not now, but 1970
     holds[i] = False
 
@@ -54,17 +53,19 @@ def callback_press():
     """ Button callback function, turns on lasers and plays higher note """
     global lasers
     global sounds
+    global chans
     print("PRESSED. Lasers on, higher note played.")
     lasers.on() # Turn on the lasers
-    sounds[1].out() # Play the second note (higher)
+    chans[1].play(sounds[1]) # Play the second note (higher)
 
 def callback_release():
     """ Button callback function, turns off lasers and plays lower note """
     global lasers
     global sounds
+    global chans
     print("RELEASED. Lasers off, lower note played.")
     lasers.off() # Turn off the lasers
-    sounds[0].out() # Play the first note (lower)
+    chans[0].play(sounds[0]) # Play the first note (lower)
 
 LAS = 23 # Pin on which laser circuit is relayed
 lasers = LED(LAS) # Initialize the laser as LED-style digital I/O

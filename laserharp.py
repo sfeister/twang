@@ -3,10 +3,6 @@
 #
 # Run this script to play your laser instrument!
 # You might want to even add it into the startup menu.
-#
-# Start jack before running this script, e.g. via
-#   export DISPLAY=:0 
-#   jackd -d alsa -n 16 &
 # 
 #
 # Uses the MCP3008 ADC, photoresistors + 10k resistors, 
@@ -21,7 +17,9 @@ import os
 from time import sleep
 from datetime import datetime
 import numpy as np
-import pyo
+import pygame.mixer
+from pygame.mixer import Sound
+from pygame.mixer import Channel
 from Adafruit_MCP3008 import MCP3008
 from gpiozero import LED, Button
 
@@ -49,10 +47,6 @@ BTN = 24
 button = Button(BTN)
 button.when_pressed = callback1 # Could change to "when_released"
 
-## INITIALIZE THE SOUND MIXER
-s = pyo.Server(duplex=0).boot() # Boot the pyo server
-s.start()
-
 ## SET SOME BASIC INFO
 nstrings = 5 # Number of harp strings
 pluckhold = 0.1 # Maximum seconds between subsequent plucks
@@ -64,15 +58,21 @@ notes = ["c4", "d4", "e4", "f4", "g4"]  # List of wav files in the notedir folde
 ext = ".wav"
 
 sounds = [None]*nstrings
+chans = [None]*nstrings
 tpluck = [None]*nstrings
 holds = [None]*nstrings
 
+## INITIALIZE THE SOUND MIXER
+pygame.mixer.pre_init(44100, -16, nstrings, )
+pygame.mixer.init()
+
 for i in range(nstrings):
-    sounds[i] = pyo.SfPlayer(os.path.join(notedir, notes[i] + ext))
+    sounds[i] = Sound(os.path.join(notedir, notes[i] + ext))
+    chans[i] = Channel(i)
     tpluck[i] = datetime.now() # Would be better if it was not now, but 1970
     holds[i] = False
 
-sounds[0].out() # Greet the world by playing the low note
+chans[0].play(sounds[0]) # Greet the world by playing the low note
 
 # Allocate arrays for ADC values
 raw = np.zeros((nstrings,), dtype=int) # The raw ADC values
@@ -130,7 +130,7 @@ while True:
                 if raw[i] < thresh_raw[i]: # The value is less than the threshold
                     if not holds[i]:
                         print("Plucked " + str(notes[i]))
-                        sounds[i].out() # Play the note
+                        chans[i].play(sounds[i]) # Play the note
                         tpluck[i] = datetime.now()
                         holds[i] = True
                 else:
