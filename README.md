@@ -61,7 +61,7 @@ These dependencies, and a few others, can be installed onto your Raspberry Pi (t
 2. Next, install all the dependencies we discussed above via:
    
    ```bash
-   sudo apt install jackd fluidsynth python3-pip python3-numpy python3-gpiozero python3-rpi.gpio fluid-soundfont-gs
+   sudo apt install jackd fluidsynth python3-pip python3-numpy python3-gpiozero python3-rpi.gpio python3-jack-client fluid-soundfont-gs
    sudo pip3 install pyfluidsynth
    ```
 

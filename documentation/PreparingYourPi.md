@@ -153,7 +153,7 @@ sudo apt -y upgrade
 Install the required and optional software dependencies for twang. Note that the following is one SINGLE, long line.
 
 ```bash
-sudo apt -y install jackd fluidsynth python3-pip python3-numpy python3-gpiozero python3-rpi.gpio fluid-soundfont-gs qsynth patchage qjackctl vmpk
+sudo apt -y install jackd fluidsynth python3-pip python3-numpy python3-gpiozero python3-rpi.gpio python3-jack-client fluid-soundfont-gs qsynth patchage qjackctl vmpk
 ```
 
 And one more dependency, pyfluidsynth:
