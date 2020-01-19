@@ -51,9 +51,7 @@ After physical construction of the laser harp:
 
 1. Check you have audio output working with your speakers. Test this by trying to play a sound file in a standard Raspbian sound player, like Audacity. If you don't hear sound, you can change between HDMI audio, analog audio, and other audio output options by left-clicking the volume icon found in the upper right corner of the Raspbian desktop.
 
-2. (Python2) Navigate into the source directory and run ```python laserharp.py ```
-
-(Python3) Navigate into the source directory and run ```python3 laserharp.py ```
+2. (Python2) Navigate into the source directory and run ```python laserharp.py ```, or (Python3) Navigate into the source directory and run ```python laserharp.py```
 
 ## Troubleshooting the harp
 Several Python scripts for testing and running the five-string laser harp are included:
@@ -70,11 +68,8 @@ test_debugger.py | Combined test intended for comprehensive debugging
 laserharp.py | Runs the laser harp as a playable instrument
 
 Rather than jumping right to laserharp.py, it is very useful to run the "test_[something].py" scripts when building and troubleshooting the laser harp. The "test_debugger.py" script is especially helpful. Run this script by:
-
 ``` python test_debugger.py ``` (Python2), or
-
 ``` python3 test_debugger.py ``` (Python3)
-
 You will still want to generally check audio output before running any tests involving audio (follow step 1 of the previous section).
 
 ## Credits
