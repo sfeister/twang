@@ -36,7 +36,7 @@ class LightInstrument:
     Example: A laser harp, an LED-based piano, or a laser guitar.
     """
 
-    def __init__(self, lstrings, open_chord=None, chordbtns=None, beampin=23, midi_instrument=0, driver="jack", soundfont="/usr/share/sounds/sf2/Guitars-Universal-V1.5.sf2", gain=0.2):
+    def __init__(self, lstrings, open_chord=None, chordbtns=None, beampin=23, midi_instrument=0, driver="alsa", soundfont="/usr/share/sounds/sf2/Guitars-Universal-V1.5.sf2", gain=0.2):
         """ If open_chord is specified, overrides the lstring values """
 
         self.nstrings = len(lstrings) # Count the number of strings
