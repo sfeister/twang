@@ -195,10 +195,10 @@ Verify that you now have a file called "guitar.py" in the folder "twang_examples
 
 Next, you'll create and/or edit your ".bash_profile" file in your home folder. This file will be run every time you boot the pi (and more!), to locate the default guitar instrument and run the 'startsynth' command every time you boot up your Raspberry Pi.
 
-1. Type the following command to create the file using the text editor "nano".
+1. Type the following command to create the file using the text editor "nano". Note that I don't use "sudo" here because we want to create and edit this file as a regular user.
 
 ```bash
-sudo nano ~/.bash_profile
+nano ~/.bash_profile
 ```
 
 2. Copy and paste the following text, exactly as written below, into the nano text editor. If text is already present in your nano text editor, you can paste this text afterwards.
