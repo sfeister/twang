@@ -27,6 +27,24 @@ import fluidsynth # sudo apt install fluidsynth; sudo pip3 install pyFluidSynth
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 
+def jack_connect():
+    """ Within JACK, connect fluidsynth ports to system playback ports (enabling sound from speakers) """
+    client = jack.Client("MyGreatClient")
+
+    # Identify the system and fluidsynth audio ports
+    sysports = client.get_ports('system*', is_audio=True, is_output=False, is_physical=True)
+    fluidports = client.get_ports('fluidsynth*', is_audio=True, is_output=True)
+
+    if len(sysports) < 2:
+        raise Exception("Found fewer than two system audio playback ports. Should have found one left channel and one right channel.")
+    if len(fluidports) < 2:
+        raise Exception("Found fewer than two fluidsynth audio output ports. Should have found one left channel and one right channel.")
+
+    # Connect the fluidsynth ports to the system playback ports
+    client.connect(fluidports[0], sysports[0]) # connect left port
+    client.connect(fluidports[1], sysports[1]) # connect right port
+
+    client.close()
 
 class LightInstrument:
     """
@@ -93,10 +111,9 @@ class LightInstrument:
         self.fs.program_select(0, sfid, 0, self.midi_instrument)
 
         if self.driver == "jack":
-            # Make the jack audio connections of fluidsynth outputs to enable system playback
-            subprocess.call(["jack_connect", "fluidsynth:l_00", "system:playback_1"])
-            subprocess.call(["jack_connect", "fluidsynth:r_00", "system:playback_2"])
-                
+            # Make the JACK audio connections to enable fluidsynth sound from speakers
+            jack_connect()
+            
         # Play an intro diddy
         self.lstrings[0].play(self.fs)
 
