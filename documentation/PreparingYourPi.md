@@ -174,10 +174,16 @@ sudo mv ~/Downloads/Guitars-Universal-V1.5.sf2 /usr/share/sounds/sf2/
 
 ###### Install twang and example instruments
 
-Install twang.
+Install twang.\*
 
 ```bash
 sudo pip3 install git+https://github.com/phyzicist/twang.git
+```
+
+\* If, at a later date, you need to **update** twang, you'll use a different command:
+
+```bash
+sudo pip3 install --upgrade git+https://github.com/phyzicist/twang.git
 ```
 
 Download and extract the example instruments from the twang GitHub repository. E.g. here is one way to download all example instruments, creating and/or overwriting a folder called "twang_examples" in your home folder:

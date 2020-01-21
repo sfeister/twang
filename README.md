@@ -34,7 +34,7 @@ For more information on the physical construction of the five-string laser harp 
 
 This toolkit has software dependencies:
 
-* jackd (JACK Audio Connection Kit - http://www.jackaudio.org/)
+* jackd ([JACK Audio Connection Kit](http://www.jackaudio.org/))
 * fluidsynth
 
 It also has Python package dependencies:
@@ -42,6 +42,7 @@ It also has Python package dependencies:
 * rpi.gpio
 * gpiozero
 * numpy
+* jack ([JACK Client for Python](https://jackclient-python.readthedocs.io/en/0.5.1/))
 * pyfluidsynth
 
 And the following additional dependencies:
