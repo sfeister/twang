@@ -197,22 +197,19 @@ rm -rf twang
 
 Verify that you now have a file called "guitar.py" in the folder "twang_examples" of your home folder.
 
-###### Edit .bash_profile for automatic instrument startup
+###### Edit .profile for automatic instrument startup
 
-Next, you'll create and/or edit your ".bash_profile" file in your home folder. This file will be run every time you boot the pi (and more!), to locate the default guitar instrument and run the 'startsynth' command every time you boot up your Raspberry Pi.
+Next, you'll create and/or edit your ".profile" file in your home folder. This file will be run every time you boot the pi (and more!), to locate the default guitar instrument and run the 'startsynth' command every time you boot up your Raspberry Pi.
 
 1. Type the following command to create the file using the text editor "nano". Note that I don't use "sudo" here because we want to create and edit this file as a regular user.
 
 ```bash
-nano ~/.bash_profile
+nano ~/.profile
 ```
 
-2. Copy and paste the following text, exactly as written below, into the nano text editor. If text is already present in your nano text editor, you can paste this text afterwards.
+2. Copy and paste the following text, exactly as written below, into the nano text editor. There will probably already be some text present in .profile, and you should add this text after it.
 
 ```bash
-#
-# ~/.bash_profile
-#
 
 ## DEFINE 'INSTRUMENT' ENVIRONMENT VARIABLE
 # We use our own made-up "INSTRUMENT" environment variable to hold a path to our instrument's python3 script
