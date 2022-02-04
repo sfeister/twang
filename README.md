@@ -81,13 +81,13 @@ After installing all of the required dependencies (see previous section), you ar
 One way to install **twang** is via
 
 ```bash
-sudo pip3 install git+https://github.com/phyzicist/twang.git
+sudo pip3 install git+https://github.com/sfeister/twang.git
 ```
 
 To update **twang** at a later date
 
 ```bash
-sudo pip3 install --upgrade git+https://github.com/phyzicist/twang.git
+sudo pip3 install --upgrade git+https://github.com/sfeister/twang.git
 ```
 
 ## Command-line tools
