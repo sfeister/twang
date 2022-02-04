@@ -139,7 +139,7 @@ All this will take a little while! Make sure to do the sound tests at the end of
 
 ##### Instructions
 
-The following is an abridged/modified version of the instructions for installing twang that found in the README of [https://github.com/phyzicist/twang](https://github.com/phyzicist/twang).
+The following is an abridged/modified version of the instructions for installing twang that found in the README of [https://github.com/sfeister/twang](https://github.com/sfeister/twang).
 
 ###### Update system and install software dependencies
 
@@ -177,20 +177,20 @@ sudo mv ~/Downloads/Guitars-Universal-V1.5.sf2 /usr/share/sounds/sf2/
 Install twang.\*
 
 ```bash
-sudo pip3 install git+https://github.com/phyzicist/twang.git
+sudo pip3 install git+https://github.com/sfeister/twang.git
 ```
 
 \* If, at a later date, you need to **update** twang, you'll use a different command:
 
 ```bash
-sudo pip3 install --upgrade git+https://github.com/phyzicist/twang.git
+sudo pip3 install --upgrade git+https://github.com/sfeister/twang.git
 ```
 
 Download and extract the example instruments from the twang GitHub repository. E.g. here is one way to download all example instruments, creating and/or overwriting a folder called "twang_examples" in your home folder:
 
 ```bash
 cd ~
-git clone https://github.com/phyzicist/twang.git
+git clone https://github.com/sfeister/twang.git
 mv twang/examples twang_examples
 rm -rf twang
 ```
@@ -239,13 +239,13 @@ The instructions below are copied from [this page](https://howchoo.com/g/mwnlytk
 1. Download the "listen-for-shutdown.sh" script from the twang repository into the system directory "/etc/init.d/". Note that the following is a SINGLE, long line of text, and it should be copied and pasted into the terminal all in one piece:
 
 ```bash
-sudo wget https://raw.githubusercontent.com/phyzicist/twang/master/bin/listen-for-shutdown.sh -P /etc/init.d/
+sudo wget https://raw.githubusercontent.com/sfeister/twang/master/bin/listen-for-shutdown.sh -P /etc/init.d/
 ```
 
 2. Download the "listen-for-shutdown.py" script from the twang repository into the system directory "/usr/local/bin/". Again, note that the following is a SINGLE, long line of text, and it should be copied and pasted into the terminal all in one piece:
 
 ```bash
-sudo wget https://raw.githubusercontent.com/phyzicist/twang/master/bin/listen-for-shutdown.py -P /usr/local/bin/
+sudo wget https://raw.githubusercontent.com/sfeister/twang/master/bin/listen-for-shutdown.py -P /usr/local/bin/
 ```
 
 3. Change permissions to make these two scripts executable.
