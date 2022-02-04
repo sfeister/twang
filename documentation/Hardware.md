@@ -168,7 +168,7 @@ This section is kind of tricky but is essential to the functionality of your lig
 
 #### Instructions
 
-Make, solder, connect, breadboard, etc. all the circuits -- for example, for a six-string/four-chord laser guitar, you could build the circuits shown in [this circuit diagram](https://github.com/phyzicist/twang/raw/master/diagrams/GuitarCircuitDiagram.pdf).
+Make, solder, connect, breadboard, etc. all the circuits -- for example, for a six-string/four-chord laser guitar, you could build the circuits shown in [this circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/GuitarCircuitDiagram.pdf).
 
 Don't hesitate to ask for help on this section!
 
