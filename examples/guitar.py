@@ -66,12 +66,12 @@ if __name__ == "__main__":
     
     # Phototransistor pins for strings (low-note strings first)
     lstrings = [None]*6
-    lstrings[0] = LightString(pin=20, midinote=opennotes[0], pluckhold=20)
-    lstrings[1] = LightString(pin=16, midinote=opennotes[1], pluckhold=20)
-    lstrings[2] = LightString(pin=13, midinote=opennotes[2], pluckhold=20)
-    lstrings[3] = LightString(pin=12, midinote=opennotes[3], pluckhold=20)
-    lstrings[4] = LightString(pin=6, midinote=opennotes[4], pluckhold=20)
-    lstrings[5] = LightString(pin=5, midinote=opennotes[5], pluckhold=20)
+    lstrings[0] = LightString(pin=20, midinote=opennotes[0], pluckhold=1)
+    lstrings[1] = LightString(pin=16, midinote=opennotes[1], pluckhold=1)
+    lstrings[2] = LightString(pin=13, midinote=opennotes[2], pluckhold=1)
+    lstrings[3] = LightString(pin=12, midinote=opennotes[3], pluckhold=1)
+    lstrings[4] = LightString(pin=6, midinote=opennotes[4], pluckhold=1)
+    lstrings[5] = LightString(pin=5, midinote=opennotes[5], pluckhold=1)
     
     # Combine the buttons and strings together into an instrument!
     myguitar = LightInstrument(lstrings, chordbtns=cbuttons, midi_instrument=1, gain=1.0)

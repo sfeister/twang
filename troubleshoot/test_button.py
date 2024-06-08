@@ -13,7 +13,7 @@ def callback1():
     print("Button pressed!!")
     
 ## INITIALIZE THE BUTTON
-BTN = 24
+BTN = 22
 button = Button(BTN)
 button.when_pressed = callback1
 

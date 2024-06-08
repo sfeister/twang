@@ -1,0 +1,10 @@
+[Unit]
+Description=Twang instrument systemd service.
+After=aplay.service alsa-utils.service pigpiod.service
+
+[Service]
+type=simple
+ExecStart=/bin/bash /usr/local/bin/instrument_service.sh
+
+[Install]
+WantedBy=multi-user.target

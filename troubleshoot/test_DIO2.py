@@ -24,7 +24,7 @@ if __name__ == '__main__':
     signal(SIGINT, handler)
 
     ## INITIALIZE THE BUTTON
-    BTN = 20
+    BTN = 22
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(BTN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.add_event_detect(BTN, GPIO.FALLING, callback=callback1, bouncetime=100)
