@@ -21,6 +21,9 @@ fi
 
 echo "\$INSTRUMENT environment variable: $INSTRUMENT"
 
+echo "Sleeping 40 seconds to allow system to finish booting (and enable a quick SSH login to kill this process if needed)"
+sleep 40
+
 echo "Killing off any existing processes locking hw:0 audio card"
 fuser -v /dev/snd/pcmC0D0p
 fuser -k /dev/snd/pcmC0D0p
