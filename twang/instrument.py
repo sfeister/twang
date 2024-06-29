@@ -1,51 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-instrument.py: Class-based definitions of light-based instruments on Raspberry Pi
+instrument.py: Class-based definitions of light-based instruments on Raspberry Pi Pico microcontrollers.
+
+Outputs MIDI, one string per channel.
 
 Watches for plucks of light strings and pressing of buttons to change chords.
-Uses Raspberry Pi's hardware interrupts on digital GPIO pins for catching quick plucks of strings.
 Supports use of buttons to change chords ,facilitating not just laser harps, but laser guitars!
+
+For use with the Pi Pico and CircuitPython.
 
 TODO:
     * Facilitate easier changing of instrument
     
-    
-Python script for catching Ctrl + C / SIGINT / SIGTERM copied from https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
-
-Created by Scott Feister on Mon Aug  5 10:39:52 2019
-Updated January 9, 2020 for use in DeAnza laser harp project.
+Created by Scott Feister June 28, 2024.
 """
 
-from datetime import datetime
-from signal import signal, SIGINT, SIGTERM
-from sys import exit
-import subprocess
 from time import sleep
-import numpy as np
-import jack # sudo apt install jackd python3-jack-client
-import fluidsynth # sudo apt install fluidsynth; sudo pip3 install pyFluidSynth
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
+import ulab.numpy as np
+import board
+import keypad
+from digitalio import DigitalInOut, Direction, Pull
+import pulseio
+import usb_midi
 
-def jack_connect():
-    """ Within JACK, connect fluidsynth ports to system playback ports (enabling sound from speakers) """
-    client = jack.Client("MyGreatClient")
-
-    # Identify the system and fluidsynth audio ports
-    sysports = client.get_ports('system*', is_audio=True, is_output=False, is_physical=True)
-    fluidports = client.get_ports('fluidsynth*', is_audio=True, is_output=True)
-
-    if len(sysports) < 2:
-        raise Exception("Found fewer than two system audio playback ports. Should have found one left channel and one right channel.")
-    if len(fluidports) < 2:
-        raise Exception("Found fewer than two fluidsynth audio output ports. Should have found one left channel and one right channel.")
-
-    # Connect the fluidsynth ports to the system playback ports
-    client.connect(fluidports[0], sysports[0]) # connect left port
-    client.connect(fluidports[1], sysports[1]) # connect right port
-
-    client.close()
+import adafruit_midi
+from adafruit_midi.note_off import NoteOff
+from adafruit_midi.note_on import NoteOn
 
 class LightInstrument:
     """
@@ -55,27 +36,28 @@ class LightInstrument:
     Example: A laser harp, an LED-based piano, or a laser guitar.
     """
 
-    def __init__(self, lstrings, open_chord=None, chordbtns=None, beampin=23, midi_instrument=0, driver="jack", soundfont="/usr/share/sounds/sf2/Guitars-Universal-V1.5.sf2", gain=0.2):
+    def __init__(self, lstrings, open_chord=None, chordbtns=None, beampin=board.GP2):
         """ If open_chord is specified, overrides the lstring values """
 
         self.nstrings = len(lstrings) # Count the number of strings
         self.lstrings = lstrings # A list of LightString objects
         self.chordbtns = chordbtns # A list of ChordButton objects; if None, assume this is a harp-like instrument (no chord changes)
         self.beampin = beampin # The GPIO output pin that controls the light source for the strings (e.g. the pin that controls the lasers)
-        self.driver = driver # Valid entries for driver are "alsa" or "jack" -- gets fed into pyfluidsynth
-        self.soundfont = soundfont # Path to the .sf2 soundfont file that you'd like to use
-        self.midi_instrument = midi_instrument # midi instrument you'd like to use, within the 0th bank of this soundfont
-        self.gain = gain # gain for fluidsynth that you'd like
-        self.fs = None
-        
+                    
         # Set up the light source pin as an output
-        GPIO.setup(beampin, GPIO.OUT, initial=0)
+        self.beam = DigitalInOut(self.beampin)
+        self.beam.direction = Direction.OUTPUT
+        
+        self.midi = adafruit_midi.MIDI(midi_out=usb_midi.ports[1], out_channel=0)
+        for lstring in lstrings:
+            if not lstring.midi:
+                lstring.midi = self.midi
         
         # Do a little blinky show
         for i in range(4):
-            GPIO.output(self.beampin, 1) # Turn off light source for the strings (e.g. turn off the lasers)
+            self.beam.value = True # Turn on/off light source for the strings (e.g. turn on/off the lasers)
             sleep(0.1)
-            GPIO.output(self.beampin, 0) 
+            self.beam.value = False
             sleep(0.1)
 
         # Initialize notes on the lstrings with an open chord
@@ -98,48 +80,25 @@ class LightInstrument:
             # Initialize chord buttons array to all False (nothing pressed)
             self.chordarr = np.array([False for btn in self.chordbtns]) # A True/False list of whether chord buttons are pressed
         
-    def start(self):
-        """ Begins endless loop of the instrument """
-        # Tell Python to run the handler() function when SIGINT (Ctrl + C) or SIGTERM (pkill?) is recieved
-        signal(SIGINT, self.handler)
-        signal(SIGTERM, self.handler)
-
-        # Start fluidsynth and set instrument output
-        print("Starting fluidsynth.")
-        self.fs = fluidsynth.Synth(samplerate=48000, gain=self.gain, channels=1)
-        self.fs.start(driver=self.driver)
-        sfid = self.fs.sfload(self.soundfont)
-        self.fs.program_select(0, sfid, 0, self.midi_instrument)
-
-        if self.driver == "jack":
-            # Make the JACK audio connections to enable fluidsynth sound from speakers
-            jack_connect()
-            
+    def run(self):
+        """ Begins endless loop of the instrument """           
         # Play an intro diddy
-        self.lstrings[0].play(self.fs)
+        self.lstrings[0].play()
 
         print("Instrument starting, ready to play!")
-        GPIO.output(self.beampin, 1) # Turn on light source for the strings (e.g. turn on the lasers)
+        self.beam.value = True # Turn on light source for the strings (e.g. turn on the lasers)
 
-        for lstring in self.lstrings:
-            lstring.start()
+        #for lstring in self.lstrings:
+        #    lstring.start()
             
         while True:
             # Update the chord as needed
-            self.check_and_update_chord()
+            self.check_and_update_chord() # TODO
             
             # Send MIDI signal for any strings that have been plucked since last loop iteration
             for lstring in self.lstrings:
-                lstring.check_and_play(self.fs)
+                lstring.check_and_play()
     
-    def stop(self):
-        for lstring in self.lstrings:
-            lstring.stop()            
-
-        GPIO.output(self.beampin, 0) # Turn off light source for the strings (e.g. turn off the lasers)
-        self.fs.delete()
-        self.fs = None
-
     def update_chord(self, chord):
         """ Update the currently implemented chord """
         for note, lstring in zip(chord, self.lstrings):
@@ -164,15 +123,7 @@ class LightInstrument:
                     
                 # Apply the new chord notes to the lstrings
                 self.update_chord(chord)
-    def handler(self, signal_received, frame):
-        # If interrupt signal is sent, run this script
-        print('SIGINT, SIGTERM, or CTRL-C detected. Exiting gracefully.')
-        self.stop()
-        exit(0)
-                        
-    #def __del__(self):
-    #    self.stop()
-        
+                                
 class ChordButton:
     """
     Class describing a pushbutton that, when pressed, changes the chord
@@ -190,68 +141,81 @@ class ChordButton:
             raise Exception("Invalid notes. All midi notes must be integers the range of 0 to 127.")
 
         self.pin = pin # BCM pin number
-        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Pull-up; connect other side to GND
-
+        
+        self.dio = DigitalInOut(self.pin)
+        self.dio.direction = Direction.INPUT
+        self.dio.pull = Pull.UP
+        
     def is_pressed(self):
-        """ Get whether button is pressed """
-        return not GPIO.input(self.pin)
-    
+        return not self.dio.value
+        
+
 class LightString:
     """
     Class describing a single beam of light and its interrupt
        
     """
     
-    def __init__(self, pin, midinote=72, pluckhold=100):
-        self.pin = pin # BCM pin number for phototransistor, on the Raspberry Pi
-        self.pluckhold = pluckhold # Maximum milliseconds between subsequent plucks, implemented as a bouncetime in GPIO interrupt
-        self.t_pluck = datetime.now() # Time of the most recent pluck (will just say now)
-        self.last_note = midinote # MIDI note
+    def __init__(self, pin, midinote=72, midi=None):
+        self.pin = pin # "board" pin number for phototransistor
+        self.midi = midi # "adafruit_midi" MIDI instance (if left as None, nothing will play)
         self.note = midinote # MIDI note
-        self.playme = False # Whether or not to play the note at next opportunity
+        self.last_note = self.note
+        #self.pulses = pulseio.PulseIn(self.pin, maxlen=10, idle_state=False)
+        self.keys = keypad.Keys((self.pin,), value_when_pressed=False, pull=True, interval=0.01)
         
-        # GPIO set up as an input, pulled up
-        # (Button will be connected to GND on button press) 
-        # TODO: Set this correctly for phototransistors
-        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        
-    def start(self):
-        """ Start watching for plucks of this Light String """
-        # Set up an interrupt on this pin
-        GPIO.add_event_detect(self.pin, GPIO.FALLING, callback=self.callback, bouncetime=self.pluckhold)
-    
-    def stop(self):
-        """ Stop watching for plucks of this Light String """
-        GPIO.remove_event_detect(self.pin)
-        
-    def callback(self, channel):
-        """ Interrupt callback for the pluck of this string 
-        Note: Kept as quick as possible """
-        self.t_pluck = datetime.now() # Update the time of the most recent pluck
-        self.playme = True # Play note at next opportunity
+        self.xp = np.logspace(np.log10(50), np.log10(500), num=20) # for interpolating pluck duration
+        self.yp = np.linspace(127, 40, num=20)
         
     def change_note(self, note):
         """Update the note for the next pluck """
         self.note = note # Update the midi note without affecting currently-playing sounds
 
-    def play(self, fs):
-        """ Play sound using the Fluidsynth Midi player"""
-        if self.note > -1: # Exclude case of -9999, which we are using to represent an unpluckable note
-            fs.noteoff(0, self.last_note) # Stop playing old sound
-            fs.noteon(0, self.note, vel=127) # Play new sound
-            self.last_note = self.note # Update the last_note variable
-    
-    def check_and_play(self, fs):
-        """ Check beam and play sound (if appropriate)
-        Only play sound if it is waiting to be played.
-        """       
-        if self.playme:
-            self.playme = False
-            self.play(fs)
+    def play(self, velocity=127):
+        """ Play sound using the midi output"""
+        if not self.midi:
+            raise Exception("MIDI not initialized properly for this string, so we can't play anything.")
             
-    #def __del__(self):
-    #    """ Shut down the string """
-    #    self.stop()
+        if self.note > -1: # Exclude case of -9999, which we are using to represent an unpluckable string
+            msg_note_off = NoteOff(self.last_note) # Stop playing old sound
+            msg_note_on = NoteOn(self.note, velocity=velocity) # Play new sound
+            self.last_note = self.note # Update the last_note variable
+            self.midi.send([msg_note_off, msg_note_on])
+            
+    # Use pulse logic for getting a velocity on the strum
+    def check_and_play(self):
+        event = self.keys.events.get()
+        # event will be None if nothing has happened.
+        if event:
+            if event.pressed:
+                self.pressed_ticks_ms = event.timestamp
+            if event.released:
+                self.keys.events.clear()
+                pluck_ms = event.timestamp - self.pressed_ticks_ms
+                velocity = int(np.interp([pluck_ms], self.xp, self.yp)[0]) # Scale it down
+                self.play(velocity=velocity) # TODO: Add in a velocity
+                print("Pluck detected!") # DEBUG
+                print("Pluck duration (ms): {}".format(pluck_ms)) # DEBUG
+                print("Pluck velocity (0-127): {}".format(velocity)) # DEBUG
+
+        # if len(self.pulses) > 0: # Check for a new pluck of this string
+            # print("Pluck detected!") # DEBUG
+            
+            # self.pulses.pause()
+            # npulses = len(self.pulses)
+            # pulse_arr = np.zeros(npulses)
+            # for i in range(len(self.pulses)):
+                # pulse_arr[i] = self.pulses[i]
+
+            # self.pulses.clear()
+            # self.pulses.resume()
+            # print("List of raw pulses (us): {}".format(pulse_arr)) # DEBUG
+            # longest_active_us = np.max(pulse_arr[::2])
+            # print("Pluck duration (us): {}".format(longest_active_us)) # DEBUG
+            
+            # # Play the pluck as midi, with corresponding velocity
+            # self.play() # TODO: Add in a velocity
+
 
 if __name__ == "__main__":
     pass
