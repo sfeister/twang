@@ -110,7 +110,7 @@ class LightInstrument:
         """ Update the currently implemented chord, only if new button has been pressed """
         if self.chordbtns is not None:
             chordarr = np.array([btn.is_pressed() for btn in self.chordbtns]) # List of True/False on whether buttons are pressed
-            if not np.array_equal(chordarr, self.chordarr):
+            if np.sum((chordarr - self.chordarr)**2) > 0:
                 # Update the chord array for future comparison
                 self.chordarr = chordarr
     

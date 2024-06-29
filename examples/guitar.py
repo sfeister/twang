@@ -8,7 +8,8 @@ Created by Scott Feister on Tue Aug 13 20:08:07 2019
 
 #from lightinstrument4 import LightInstrument, ChordButton, LightString
 from twang import LightString, LightInstrument, ChordButton, getnote
-import numpy as np
+import ulab.numpy as np
+import board
 
 # Standard guitar tuning: E2–A2–D3–G3–B3–E4
 opennames = ["E2","A2","D3","G3","B3","E4"]
@@ -52,27 +53,27 @@ B = [x,2,4,4,4,2]
 def midify(relnotes):
     """ Convert relative chord to an absolute chord in midi
     Relies on variables opennotes and x defined above"""
-    notes = np.array(relnotes) + np.array(opennotes)
+    notes = np.array(relnotes, dtype=np.int16) + np.array(opennotes, dtype=np.int16)
     notes[notes < 0] = -9999 # Reset unpluckable strings to -9999
     return notes
     
 if __name__ == "__main__":
     # Button pins for chords, and their associated chords
     cbuttons = [None]*4
-    cbuttons[0] = ChordButton(pin=25, midinotes=midify(C))
-    cbuttons[1] = ChordButton(pin=22, midinotes=midify(G))
-    cbuttons[2] = ChordButton(pin=27, midinotes=midify(Am))
-    cbuttons[3] = ChordButton(pin=17, midinotes=midify(F))
+    cbuttons[0] = ChordButton(pin=board.GP20, midinotes=midify(C))
+    cbuttons[1] = ChordButton(pin=board.GP21, midinotes=midify(G))
+    cbuttons[2] = ChordButton(pin=board.GP22, midinotes=midify(Am))
+    cbuttons[3] = ChordButton(pin=board.GP23, midinotes=midify(F))
     
     # Phototransistor pins for strings (low-note strings first)
     lstrings = [None]*6
-    lstrings[0] = LightString(pin=20, midinote=opennotes[0], pluckhold=1)
-    lstrings[1] = LightString(pin=16, midinote=opennotes[1], pluckhold=1)
-    lstrings[2] = LightString(pin=13, midinote=opennotes[2], pluckhold=1)
-    lstrings[3] = LightString(pin=12, midinote=opennotes[3], pluckhold=1)
-    lstrings[4] = LightString(pin=6, midinote=opennotes[4], pluckhold=1)
-    lstrings[5] = LightString(pin=5, midinote=opennotes[5], pluckhold=1)
+    lstrings[0] = LightString(pin=board.GP11, midinote=opennotes[0])
+    lstrings[1] = LightString(pin=board.GP12, midinote=opennotes[1])
+    lstrings[2] = LightString(pin=board.GP13, midinote=opennotes[2])
+    lstrings[3] = LightString(pin=board.GP14, midinote=opennotes[3])
+    lstrings[4] = LightString(pin=board.GP15, midinote=opennotes[4])
+    lstrings[5] = LightString(pin=board.GP16, midinote=opennotes[5])
     
     # Combine the buttons and strings together into an instrument!
-    myguitar = LightInstrument(lstrings, chordbtns=cbuttons, midi_instrument=1, gain=1.0)
-    myguitar.start()
+    myguitar = LightInstrument(lstrings, chordbtns=cbuttons, beampin=board.GP2)
+    myguitar.run()
