@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-guitar.py: High-tuning four-string laser uklele with five chord buttons
+ukelele.py: High-tuning four-string laser uklele with five chord buttons
 
-Created by Scott Feister on Tue Aug 13 20:08:07 2019
+Created by Scott Feister, circa Feb 2025
 """
 
 from twang import LightString, LightInstrument, ChordButton, getnote

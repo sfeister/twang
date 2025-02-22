@@ -172,6 +172,7 @@ class LightString:
         self.midi = midi # "adafruit_midi" MIDI instance (if left as None, nothing will play)
         self.note = note # MIDI note
         self.last_note = self.note
+        self.pressed_ticks_ms = None
         self.keys = keypad.Keys((self.pin,), value_when_pressed=False, pull=True, interval=0.01)
         
         self.xp = np.logspace(np.log10(10), np.log10(200), num=20) # for interpolating pluck duration
@@ -202,7 +203,12 @@ class LightString:
             if event.released:
                 # When string is released, sound the note at a volume proportional to the time elapsed between press and release
                 self.keys.events.clear()
+                
+                if not self.pressed_ticks_ms: # string wasn't yet plucked
+                    return # abort early since string wasn't actually plucked
+
                 released_ticks_ms = event.timestamp # timestamp, in milliseconds, for the release of the string
+                                
                 pluck_ms = released_ticks_ms - self.pressed_ticks_ms # The duration of the pluck is the millisecond difference between the press and release of the string
                 # Note: unhandled overflow can occur here (empirically seen infrequently)
                 
