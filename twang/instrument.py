@@ -57,6 +57,8 @@ class LightInstrument:
         for string in strings:
             if not string.midi:
                 string.midi = self.midi
+            if self.debug and not string.debug:
+                string.debug = True # enable string debugging if instrument is being debugged
         
         # Do a little blinky show
         for i in range(4):
@@ -172,8 +174,8 @@ class LightString:
         self.last_note = self.note
         self.keys = keypad.Keys((self.pin,), value_when_pressed=False, pull=True, interval=0.01)
         
-        self.xp = np.logspace(np.log10(50), np.log10(500), num=20) # for interpolating pluck duration
-        self.yp = np.linspace(127, 40, num=20)
+        self.xp = np.logspace(np.log10(10), np.log10(200), num=20) # for interpolating pluck duration
+        self.yp = np.linspace(127, 30, num=20)
         
     def change_note(self, note):
         """Update the note for the next pluck """
