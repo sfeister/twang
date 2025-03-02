@@ -8,9 +8,9 @@ In this guide, I will skim over the steps of setting up your hardware. The targe
 
 ## Example circuit layouts
 
-* For a ten-string laser harp, you could build the circuits shown in [the Harp circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/HarpCircuitDiagram.pdf).
+* For a ten-string laser harp, you could build the circuits shown in [the Harp circuit diagram](https://github.com/sfeister/twang/raw/main/diagrams/HarpCircuitDiagram.pdf).
 
-* For a six-string laser guitar with five unique chords, you could build the circuits shown in [the Guitar circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/GuitarCircuitDiagram.pdf).
+* For a six-string laser guitar with five unique chords, you could build the circuits shown in [the Guitar circuit diagram](https://github.com/sfeister/twang/raw/main/diagrams/GuitarCircuitDiagram.pdf).
 
 ## 3D print your phototransistor and laser mounts
 
@@ -170,8 +170,8 @@ This section is kind of tricky but is essential to the functionality of your lig
 
 Make, solder, connect, breadboard, etc. all the circuits:
 
-* For a ten-string laser harp, you could build the circuits shown in [the Harp circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/HarpCircuitDiagram.pdf).
+* For a ten-string laser harp, you could build the circuits shown in [the Harp circuit diagram](https://github.com/sfeister/twang/raw/main/diagrams/HarpCircuitDiagram.pdf).
 
-* For a six-string laser guitar with five unique chords, you could build the circuits shown in [the Guitar circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/GuitarCircuitDiagram.pdf).
+* For a six-string laser guitar with five unique chords, you could build the circuits shown in [the Guitar circuit diagram](https://github.com/sfeister/twang/raw/main/diagrams/GuitarCircuitDiagram.pdf).
 
 Don't hesitate to ask for help on this section!
