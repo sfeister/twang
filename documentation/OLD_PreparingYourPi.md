@@ -4,7 +4,7 @@ By Dr. Scott Feister
 
 January 15, 2020
 
-In this guide, I will walk you through the first setup of your Raspberry Pi, the Pi Stereo Bonnet, and the *twang* software environment. The target audience is a middle school student or teacher. I assume no experience with Raspberry Pi and Linux, though it might be helpful to have access to someone with experience at points in this guide!
+In this guide, I will walk you through the first setup of your Raspberry Pi and the Pi Stereo Bonnet. The target audience is a middle school student or teacher. I assume no experience with Raspberry Pi and Linux, though it might be helpful to have access to someone with experience at points in this guide!
 
 ## Set up your SD card
 

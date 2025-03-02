@@ -2,9 +2,15 @@
 
 By Dr. Scott Feister
 
-January 16, 2020
+Updated March 2, 2025
 
-In this guide, I will skim over the steps of setting up your hardware. The target audience is a middle school student or teacher. Prior to beginning this guide, you should have read the guide on Laser Safety and completed the guide on Preparing your Pi.
+In this guide, I will skim over the steps of setting up your hardware. The target audience is a middle school student or teacher. Prior to beginning this guide, you should have read the guide on Laser Safety.
+
+## Example circuit layouts
+
+* For a ten-string laser harp, you could build the circuits shown in [the Harp circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/HarpCircuitDiagram.pdf).
+
+* For a six-string laser guitar with five unique chords, you could build the circuits shown in [the Guitar circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/GuitarCircuitDiagram.pdf).
 
 ## 3D print your phototransistor and laser mounts
 
@@ -36,11 +42,9 @@ This is the fun part! You can design and build whatever form factor you'd like f
 
 Here are some factors to consider during your design and construction of your instrument shell:
 
-* Make sure to leave generous space for the Raspberry Pi, the Pi Stereo Speaker bonnet, the speakers, some breadboards, and your wiring.
+* Make sure to leave enough space for the Pi Pico and your wiring.
 
-* Put appropriately-sized holes in where you want to mount your buttons and speakers.
-
-* Don't forget about the power button! Plan to mount that button somewhere people won't accidentally press it while playing your instrument.
+* Put appropriately-sized holes in where you want to mount your buttons.
 
 * If you are going to use lasers, make sure to carefully follow the design suggestions in the [Laser Safety Guide](Safety.md), especially designing in physical safeguards as discussed in that guide. However, **do not install any lasers or phototransistors yet** (this will be covered in a future section of this guide.)
 
@@ -50,13 +54,11 @@ Here are some factors to consider during your design and construction of your in
 
 ##### Parts needed:
 
-* One momentary pushbutton to act as a power button
-
-* Additional momentary pushbuttons to act as chord buttons (if desired)
+* Arcade-style momentary pushbuttons to act as chord buttons (if desired)
 
 ##### Instructions:
 
-If you are going to be panel-mounting your power button and/or chord buttons, go ahead and mount them now! However, you don't need to connect these into a circuit yet.
+If you are going to be panel-mounting your chord buttons, go ahead and mount them now! However, you don't need to connect these into a circuit yet.
 
 ## Assemble your light catchers
 
@@ -100,7 +102,7 @@ This section is kind of tricky but is essential to the functionality of your lig
 
 ##### Parts needed (for each string):
 
-- One LED or laser, depending on your design (e.g. this 5V, 5 mW red dot laser from [Amazon](https://www.amazon.com/HiLetgo-10pcs-650nm-Diode-Laser/dp/B071FT9HSV/ref=sr_1_3?keywords=laser+diodes&qid=1579198834&sr=8-3))
+- One LED or laser, depending on your design (e.g. this 3V, 5 mW red dot laser from [Amazon](https://www.amazon.com/Ferwooh-20PCS-Copper-semiconductor-Diameter/dp/B0CYZ9G969)
 - One LED holder or laser holder (e.g. 3D printed in the earlier step) 
 - One fully assembled light catcher (from the prior step)
 
@@ -144,19 +146,15 @@ This section is kind of tricky but is essential to the functionality of your lig
    
    3. Glue or otherwise mount the LED into place.
 
-6. Hook up a multimeter to each phototransistor (make sure + goes to the long lead!), and set it to measure the effective resistance. You may wish to make a table to record the "resistance when blocked" and "resistance when unblocked" for each phototransistor. This will be a good record to keep for future troubleshooting with your teacher. When lasers/LEDs are blocked by your finger, each phototransistor should have an effective resistance of at least five times greater than 6.8 kiloOhms (e.g., I measured about 600 kiloOhms). When the laser is shining  unblocked, each should have an effective resistance of at least five times less than 6.8 kiloOhm (e.g., I measured about 100 Ohms). This will ensure a clean on/off digital signal, when paired with a 3.3 V power supply and a 6.8 kiloOhm resistor in a later step.
+6. Hook up a multimeter to each phototransistor (make sure + goes to the long lead!), and set it to measure the effective resistance. You may wish to make a table to record the "resistance when blocked" and "resistance when unblocked" for each phototransistor. This will be a good record to keep for future troubleshooting with your teacher. When lasers/LEDs are blocked by your finger, each phototransistor should have an effective resistance of at least five times greater than 6.8 kiloOhms (e.g., I measured about 600 kiloOhms). When the laser is shining  unblocked, each should have an effective resistance of at least five times less than 6.8 kiloOhm (e.g., I measured about 100 Ohms). This will ensure a clean on/off digital signal, when paired with a 5 V power supply and a 6.8 kiloOhm resistor in a later step.
 
 ## Gather your parts for the circuits
 
 ##### Parts needed:
 
-- Your already-configured Raspberry Pi, Pi Stereo Speaker Bonnet, and speakers (see "Preparing Your Pi" guide)
+- Your Pi Pico
 
 - Your instrument shell with light catchers, light sources, and buttons already securely mounted (see prior steps)
-
-- One TIP120 NPN transistor (e.g. [from Adafruit](https://www.adafruit.com/product/976))
-
-- One 1-kiloOhm resistor
 
 - For each string, one 6.8-kiloOhm resistor (e.g. if you have six strings, need six resistors)
 
@@ -168,31 +166,12 @@ This section is kind of tricky but is essential to the functionality of your lig
 
 #### Instructions
 
-Make, solder, connect, breadboard, etc. all the circuits -- for example, for a six-string/four-chord laser guitar, you could build the circuits shown in [this circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/GuitarCircuitDiagram.pdf).
+[Pi Pico Pin Diagram](https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html#pinout-and-design-files-3)
+
+Make, solder, connect, breadboard, etc. all the circuits:
+
+* For a ten-string laser harp, you could build the circuits shown in [the Harp circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/HarpCircuitDiagram.pdf).
+
+* For a six-string laser guitar with five unique chords, you could build the circuits shown in [the Guitar circuit diagram](https://github.com/sfeister/twang/raw/master/diagrams/GuitarCircuitDiagram.pdf).
 
 Don't hesitate to ask for help on this section!
-
-## Write Python and Troubleshoot Your Instrument
-
-##### Parts needed:
-
-* Raspberry Pi booted up with internet connection (see "Preparing Your Pi" guide!)
-
-* Connected stereo bonnet with speakers (see "Preparing Your Pi" guide!)
-
-* Your fully constructed circuits, wired into the Pi
-
-##### At the end of this section you should:
-
-* Have a working light instrument!
-
-##### Instructions
-
-While I won't spell out the details here, this is where you write your Python code that runs your instrument! For example, you could use the example of the six-string/four-chord-button guitar in the twang repository: "examples/guitar.py". If you already followed the "Preparing Your Pi" guide, you have these examples in your home folder under "twang_examples", and you've already set up your Linux environment to boot up and open the "/home/pi/twang_examples/guitar.py" script.
-
-A few tips:
-
-1. Start with one of the example files like "harp.py", then copy it somewhere else, rename it, and edit it to make your own instrument.
-2. Edit your "/home/pi/.bash_profile" file to point to your own python instrument script. If you followed the "Preparing Your Pi" guide, it currently points to "/home/pi/twang_examples/guitar.py".
-
-When you feel great about everything, it's time to reboot and test. Power on your Raspberry Pi, and wait for the lasers to turn on. Is everything working as an instrument should? If not, talk with your teacher for more help troubleshooting.
