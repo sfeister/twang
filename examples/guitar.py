@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-guitar.py: Standard-tuning six-string laser guitar with four laser buttons
+guitar.py: Standard-tuning six-string laser guitar with eight chord buttons
 
-Created by Scott Feister on Tue Aug 13 20:08:07 2019
+Updated March 6 2025 by Scott Feister
 """
 
-#from lightinstrument4 import LightInstrument, ChordButton, LightString
 from twang import LightString, LightInstrument, ChordButton, getnote
 import ulab.numpy as np
 import board
@@ -55,29 +54,32 @@ def shift_notes(notes, shifts):
     # TODO: Check assertions
     shifted_notes = np.array(notes, dtype=np.int16) + np.array(shifts, dtype=np.int16) # Add the shift in note onto the note itself
     return shifted_notes
-    
+
 if __name__ == "__main__":
     print("OPEN_NOTES (midi numbers for an open chord): {}".format(OPEN_NOTES))
-    
+
     # Phototransistor pins for strings (low-note strings first)
     STRINGS = [
-        LightString(pin=board.GP10, note=OPEN_NOTES[0]),
-        LightString(pin=board.GP11, note=OPEN_NOTES[1]),
-        LightString(pin=board.GP12, note=OPEN_NOTES[2]),
-        LightString(pin=board.GP13, note=OPEN_NOTES[3]),
-        LightString(pin=board.GP14, note=OPEN_NOTES[4]),
-        LightString(pin=board.GP15, note=OPEN_NOTES[5]),
+        LightString(pin=board.GP16, note=OPEN_NOTES[0]),
+        LightString(pin=board.GP17, note=OPEN_NOTES[1]),
+        LightString(pin=board.GP18, note=OPEN_NOTES[2]),
+        LightString(pin=board.GP19, note=OPEN_NOTES[3]),
+        LightString(pin=board.GP20, note=OPEN_NOTES[4]),
+        LightString(pin=board.GP21, note=OPEN_NOTES[5]),
     ]
-    
+
     # Button pins for chords, and their associated notes
     CHORD_BTNS = [
-        ChordButton(pin=board.GP16, notes=shift_notes(OPEN_NOTES, C)),
-        ChordButton(pin=board.GP17, notes=shift_notes(OPEN_NOTES, G)),
-        ChordButton(pin=board.GP18, notes=shift_notes(OPEN_NOTES, Am)),
-        ChordButton(pin=board.GP19, notes=shift_notes(OPEN_NOTES, F)),
-        ChordButton(pin=board.GP20, notes=shift_notes(OPEN_NOTES, Em)),
+        ChordButton(pin=board.GP8, notes=shift_notes(OPEN_NOTES, Am)),
+        ChordButton(pin=board.GP9, notes=shift_notes(OPEN_NOTES, G)),
+        ChordButton(pin=board.GP10, notes=shift_notes(OPEN_NOTES, F)),
+        ChordButton(pin=board.GP11, notes=shift_notes(OPEN_NOTES, Em)),
+        ChordButton(pin=board.GP12, notes=shift_notes(OPEN_NOTES, E)),
+        ChordButton(pin=board.GP13, notes=shift_notes(OPEN_NOTES, Dm)),
+        ChordButton(pin=board.GP14, notes=shift_notes(OPEN_NOTES, D)),
+        ChordButton(pin=board.GP15, notes=shift_notes(OPEN_NOTES, C)),
     ]
 
     # Combine the buttons and strings together into an instrument!
-    myguitar = LightInstrument(strings=STRINGS, chord_btns=CHORD_BTNS, beam_pin=board.GP2, midi_program=1)
+    myguitar = LightInstrument(strings=STRINGS, chord_btns=CHORD_BTNS, midi_program=46, debug=True)
     myguitar.run()

@@ -36,7 +36,7 @@ class LightInstrument:
     Example: A laser harp, an LED-based piano, or a laser guitar.
     """
 
-    def __init__(self, strings, open_chord=None, chord_btns=None, beam_pin=board.GP2, midi_program=None, midi_channel=0, debug=False):
+    def __init__(self, strings, open_chord=None, chord_btns=None, beam_pin=None, midi_program=None, midi_channel=0, debug=False):
         """ If open_chord is specified, overrides the string values """
 
         self.debug = debug
@@ -46,8 +46,11 @@ class LightInstrument:
         self.beam_pin = beam_pin # The GPIO output pin that controls the light source for the strings (e.g. the pin that controls the lasers)
                     
         # Set up the light source pin as an output
-        self.beam = DigitalInOut(self.beam_pin)
-        self.beam.direction = Direction.OUTPUT
+        if self.beam_pin:
+            self.beam = DigitalInOut(self.beam_pin)
+            self.beam.direction = Direction.OUTPUT
+        else:
+            self.beam = None
         
         self.midi = adafruit_midi.MIDI(midi_out=usb_midi.ports[1], out_channel=midi_channel)
         
@@ -61,11 +64,12 @@ class LightInstrument:
                 string.debug = True # enable string debugging if instrument is being debugged
         
         # Do a little blinky show
-        for i in range(4):
-            self.beam.value = True # Turn on/off light source for the strings (e.g. turn on/off the lasers)
-            sleep(0.1)
-            self.beam.value = False
-            sleep(0.1)
+        if self.beam:
+            for i in range(4):
+                self.beam.value = True # Turn on/off light source for the strings (e.g. turn on/off the lasers)
+                sleep(0.1)
+                self.beam.value = False
+                sleep(0.1)
 
         # Initialize notes on the strings with an open chord
         if open_chord is None:
@@ -93,7 +97,8 @@ class LightInstrument:
         self.strings[0].play()
 
         print("Instrument starting, ready to play!")
-        self.beam.value = True # Turn on light source for the strings (e.g. turn on the lasers)
+        if self.beam:
+            self.beam.value = True # Turn on light source for the strings (e.g. turn on the lasers)
             
         while True:
             # Check for chord changes, and if so,
