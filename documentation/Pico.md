@@ -21,17 +21,41 @@ In this guide, I will go through how to program your Pi Pico to turn it into a M
 * Have a working light instrument!
 
 
-### First Setup of Pi Pico
+### Flash CircuitPython (not MicroPython) to Your Pico
 
-1. [Follow all of these steps first to install CircuitPython 9.x on your Pi.](https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython)
-    a. After following these steps, your Pi Pico will show up on your laptop as a USB flash drive called "CIRCUITPY". Proceed!
-2. Open up the "CIRCUITPY" drive, and navigate to the "lib" folder. It's empty, but we are going to add some folders here next.
-3. Download the [CircuitPython Bundle for Version 9.x] (https://circuitpython.org/libraries) and unzip it. From inside what you downloaded, navigate to the "lib" folder.
-4. From the CircuitPython Bundle for Version 9.x "lib" folder, copy a folder called "adafruit_midi" into your CIRCUITPY "lib" folder.
-5. Download the latest [Twang GitHub Repository] (https://github.com/sfeister/twang/archive/refs/heads/main.zip) and unzip it.
-6. From inside the Twang GitHub Reposotory "twang-main" folder you downloaded, copy the folder called "twang" into your CIRCUITPY "lib" folder.
+Follow all the steps at this page: [Install CircuitPython 9.x on your Pi.](https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython)
+ 
+After following these steps, your Pi Pico will show up on your laptop as a USB flash drive called "CIRCUITPY".
 
-#### Editing code.py
+If you can see your USB flash drive and it's called "CIRCUITPY" now, proceed! Otherwise, check that you've completed all steps in the hyperlink above.
+
+### Add the "adafruit_midi" CircuitPython library to your Pico
+
+You'll now add a library called "adafruit_midi" to your Pico. This library lets us send MIDI messages, which are important for our virtual instrument to work right.
+
+Follow these steps to add "adafruit_midi" to your Pico.
+1. Plug in your Pico to your laptop. It should show up as as USB flash drive called "CIRCUITPY". (If it doesn't, double check your earlier steps in earlier sections).
+1. On your laptop, download the [CircuitPython Bundle for Version 9.x] (https://circuitpython.org/libraries).
+1. Unzip the folder.
+1. From the folder you unzipped, navigate to the "lib" folder.
+1. Inside of your CIRCUITPY USB drive, there should *also* be a folder called "lib". 
+1. Copy the folder called "adafruit_midi" from the unzipped "lib" folder into your CIRCUITPY USB drive's "lib" folder.
+
+You should now have a folder called "adafruit_midi" inside of your CIRCUITPY/lib/ folder. If so, you're ready to move onto the next step.
+
+### Add the "twang" CircuitPython library to your Pico
+
+1. Plug in your Pico to your laptop. It should show up as as USB flash drive called "CIRCUITPY". (If it doesn't, double check your earlier steps in earlier sections).
+1. On your laptop, download the latest [Twang GitHub Repository] (https://github.com/sfeister/twang/archive/refs/heads/main.zip).
+1. Unzip the folder.
+1. From inside the folder you just unzipped, there should be a folder called "twang-main". Open up the "twang-main" folder. Inside, there's a folder called "twang".
+1. Inside of CIRCUITPY, there should be a folder called "lib". 
+1. Copy the folder called "twang" into your CIRCUITPY USB drive's "lib" folder.
+
+You should now have a folder called "twang" inside of your CIRCUITPY/lib/ folder, right next to your "adafruit_midi" folder. If so, you're ready to move onto the next step.
+
+#### Edit code.py
+
 1. You'll do all your editing on the CIRCUITPY USB drive "code.py" file.
 1. From inside the Twang GitHub Reposotory "twang-main" folder you downloaded, explore the examples inside the "examples" folder. Any of these can be copied to overwrite "code.py."
 1. For example, you can copy the contents of "guitar.py" and overwrite the contents of "code.py". Or, you can copy the contents of "harp.py" and overwrite the contents of "code.py".
