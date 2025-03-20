@@ -2,7 +2,7 @@
 
 By Dr. Scott Feister
 
-Updated March 5, 2025
+Updated March 20, 2025
 
 In this guide, I will go through how to program your Pi Pico to turn it into a MIDI instrument.
 
@@ -12,13 +12,13 @@ In this guide, I will go through how to program your Pi Pico to turn it into a M
 
 * Pi Pico
 
-* Your fully constructed circuits, wired into the Pi Pico
-
 * A laptop / chromebook
+
+* USB A to USB micro cable (to plug your Pi Pico into your laptop)
 
 ##### At the end of this section you should:
 
-* Have a working light instrument!
+* Have a Pi Pico with "twang" instrument firmware running on it
 
 
 ### Flash CircuitPython (not MicroPython) to Your Pico
@@ -35,11 +35,11 @@ You'll now add a library called "adafruit_midi" to your Pico. This library lets 
 
 Follow these steps to add "adafruit_midi" to your Pico.
 1. Plug in your Pico to your laptop. It should show up as as USB flash drive called "CIRCUITPY". (If it doesn't, double check your earlier steps in earlier sections).
-1. On your laptop, download the [CircuitPython Bundle for Version 9.x] (https://circuitpython.org/libraries).
+1. On your laptop, download the latest [CircuitPython Bundle for Version 9.x] (https://circuitpython.org/libraries). (Download the "Bundle", not the "Community Bundle".) For example, on March 7, 2025, I downloaded "adafruit-circuitpython-bundle-9.x-mpy-20250307.zip".
 1. Unzip the folder.
 1. From the folder you unzipped, navigate to the "lib" folder.
 1. Inside of your CIRCUITPY USB drive, there should *also* be a folder called "lib". 
-1. Copy the folder called "adafruit_midi" from the unzipped "lib" folder into your CIRCUITPY USB drive's "lib" folder.
+1. Copy the folder called "adafruit_midi" from the unzipped "lib" folder into your CIRCUITPY USB drive's "lib" folder. (If you don't see a folder called "adafruit_midi" in your unzipped "lib" folder, you might have accidentally downloaded the wrong CircuitPython Bundle. Double check your steps above.)
 
 You should now have a folder called "adafruit_midi" inside of your CIRCUITPY/lib/ folder. If so, you're ready to move onto the next step.
 
@@ -56,9 +56,13 @@ You should now have a folder called "twang" inside of your CIRCUITPY/lib/ folder
 
 #### Edit code.py
 
-1. You'll do all your editing on the CIRCUITPY USB drive "code.py" file.
-1. From inside the Twang GitHub Reposotory "twang-main" folder you downloaded, explore the examples inside the "examples" folder. Any of these can be copied to overwrite "code.py."
+1. Plug in your Pico to your laptop. It should show up as as USB flash drive called "CIRCUITPY". (If it doesn't, double check your earlier steps in earlier sections).
+1. Inside of CIRCUITPY, there should be a file called "code.py".
+1. This file, "code.py", is the Python code that will run whenever you use the Pico.
+1. From inside the Twang GitHub Reposotory "twang-main" folder you downloaded in an earlier step, there is a folder called "examples". Open up the "examples" folder.
+1. The contents of any of these example files can be copied to overwrite "code.py."
 1. For example, you can copy the contents of "guitar.py" and overwrite the contents of "code.py". Or, you can copy the contents of "harp.py" and overwrite the contents of "code.py".
+1. For now, copy the contents of "guitar.py" to overwrite "code.py".
 
 #### Troubleshooting
 1. Troubleshoot using the Serial Editor first.
